@@ -11,7 +11,6 @@ const pt=(c,e)=>{const r=c.getBoundingClientRect();return[(e.clientX-r.left)*c.w
 const L=n=>n.toLocaleString("en-US");
 
 window.TIA={E,F,R,Bt,cv,loop,pt,g,L,en};
-// غربال اراتستن
 E["0-0"]=h=>{
 h.innerHTML=`<div class="ctl">${F("sn","حد بالا (هر عدد طبیعی)",100)}${R("ss","سرعت نمایش",1,100,35)}${Bt("sgo","شروع غربال")}${Bt("sx","توقف","ghost")}</div><div class="bar"><i id="sb"></i></div><div class="result" id="so">حد را وارد کن و غربال را آغاز کن. تا ۲۵۰۰ عدد، خط‌خوردن مضرب‌ها گام‌به‌گام دیده می‌شود؛ برای عددهای بزرگ‌تر شمارش قطعه‌ای با نوار پیشرفت اجرا می‌شود (بدون سقف).</div>`;
 const W=1000,H=500,c=cv(h,W,H),x=c.getContext("2d");let S=null,stop={v:0};
@@ -28,7 +27,6 @@ x.fillStyle="#a99aff";x.font="64px Vazirmatn,Arial";x.textAlign="center";x.fillT
 loop(c,dt=>{if(!S||S.done)return;S.acc+=dt*2*10**(g("ss").value/20);let q=0;while(S.acc>=1&&!S.done&&q++<4e5){S.acc--;step()}g("sb").style.width=Math.min(100,S.p/Math.sqrt(S.n)*100)+"%"});
 g("sgo").click()};
 
-// مارپیچ اولام تا یک میلیارد
 E["0-1"]=h=>{
 h.innerHTML=`<div class="ctl">${F("un","حد بالا (حداکثر ۱٬۰۰۰٬۰۰۰٬۰۰۰)","1000000000")}${F("uj","پرش به عدد","1")}${R("uz","بزرگ‌نمایی",-60,45,-34)}${Bt("ugo","اعمال")}</div><div class="result" id="ui">برای جابه‌جایی بکش، با چرخ ماوس بزرگ‌نمایی کن و روی هر خانه بایست تا عدد آن را ببینی. مارپیچ واقعی اولام تا یک میلیارد عدد.</div>`;
 const W=1000,H=620,c=cv(h,W,H),x=c.getContext("2d");let cx=0,cy=0,q=0,dr=null;
@@ -43,7 +41,6 @@ c.onpointermove=e=>{const p=pt(c,e),z=Z();if(dr){cx-=(p[0]-dr[0])/z;cy+=(p[1]-dr
 c.addEventListener("wheel",e=>{e.preventDefault();g("uz").value=+g("uz").value-Math.sign(e.deltaY)*3;sched()},{passive:false});
 g("uz").oninput=sched;g("un").onchange=sched;g("ugo").onclick=()=>{const n=Math.floor(Number(en(g("uj").value)));if(n>=1&&n<=lim()){[cx,cy]=inv(n);if(Z()<8)g("uz").value=35}draw()};draw()};
 
-// آزمون اول بودن (BigInt)
 E["0-2"]=h=>{
 h.innerHTML=`<div class="ctl">${F("pn","عدد (بدون محدودیت طول)","170141183460469231731687303715884105727")}${Bt("pg","بررسی")}</div><div class="result" id="po"></div>`;
 const go=()=>{const o=g("po");try{const s=en(g("pn").value);if(!/^\d+$/.test(s))throw Error("فقط رقم وارد کن.");const n=BigInt(s),t0=performance.now();let r=`<span class="mono">${s.length>40?s.slice(0,18)+"…"+s.slice(-18):s}</span> (${L(s.length)} رقم)<br>`;
@@ -54,7 +51,6 @@ if(p&&n>2n)r+=`باقیمانده بر ۶: ${n%6n} ${(n%6n===1n||n%6n===5n)?"":"
 o.innerHTML=r+`<small>زمان محاسبه: ${(performance.now()-t0).toFixed(1)} میلی‌ثانیه</small>`}catch(e){o.textContent="خطا: "+e.message}};
 g("pg").onclick=go;g("pn").onkeydown=e=>e.key==="Enter"&&go();go()};
 
-// تجزیه
 E["0-5"]=h=>{
 h.innerHTML=`<div class="ctl">${F("fn","عدد صحیح (بدون محدودیت طول)","600851475143")}${Bt("fg","تجزیه کن")}</div><div class="result" id="fo"></div>`;
 const go=()=>{const o=g("fo");try{const s=en(g("fn").value);if(!/^\d+$/.test(s)||BigInt(s)<2n)throw Error("عدد صحیح ۲ یا بزرگ‌تر وارد کن.");const n=BigInt(s),t0=performance.now();let f;try{f=fac(n)}catch(e){if(e.message==="HARD")throw Error("این عدد عامل‌های اول بسیار بزرگ دارد و در مرورگر زمان‌بر است.");throw e}
@@ -63,7 +59,6 @@ const cls=sig-n>n?"فراوان":sig-n===n?"کامل":"ناقص";
 o.innerHTML=`<span class="mono">${s} = ${ex.map(([p,e])=>e>1?`${p}<sup>${e}</sup>`:p).join(" × ")}</span><br>تعداد مقسوم‌علیه‌ها τ: <span class="mono">${tau}</span><br>مجموع مقسوم‌علیه‌ها σ: <span class="mono">${sig}</span> (${cls})<br>تابع اویلر φ: <span class="mono">${phi}</span><br><small>${f.length===1?"عدد اول است · ":""}زمان: ${(performance.now()-t0).toFixed(1)} میلی‌ثانیه</small>`}catch(e){o.textContent="خطا: "+e.message}};
 g("fg").onclick=go;g("fn").onkeydown=e=>e.key==="Enter"&&go();go()};
 
-// رسم تابع
 E["0-8"]=h=>{
 h.innerHTML=`<div class="ctl">${F("f1","f₁(x)","sin(x)*x")}${F("f2","f₂(x)","x^2/10-3")}${F("f3","f₃(x)","5*exp(-x^2)")}${Bt("fr","بازنشانی نما","ghost")}</div><div class="result" id="fo" dir="ltr">sin cos tan asin acos atan sinh cosh tanh exp ln log sqrt abs floor ceil round pi e</div>`;
 const W=1000,H=600,c=cv(h,W,H),x=c.getContext("2d"),col=["#a99aff","#59d6a3","#f0bc72"];let cx=0,cy=0,sc=50,dr=null;
@@ -76,7 +71,6 @@ c.onpointermove=e=>{const p=pt(c,e);if(dr){cx-=(p[0]-dr[0])/sc;cy+=(p[1]-dr[1])/
 c.addEventListener("wheel",e=>{e.preventDefault();const p=pt(c,e),k=e.deltaY<0?1.15:1/1.15,ax=cx+(p[0]-W/2)/sc,ay=cy-(p[1]-H/2)/sc;sc*=k;cx=ax-(p[0]-W/2)/sc;cy=ay+(p[1]-H/2)/sc;draw()},{passive:false});
 ["f1","f2","f3"].forEach(i=>g(i).oninput=draw);g("fr").onclick=()=>{cx=cy=0;sc=50;draw()};draw()};
 
-// n-body
 E["2-1"]=h=>{
 h.innerHTML=`<div class="ctl">${Bt("p1","دو جسم","ghost")}${Bt("p2","هشت‌شکل سه‌جسمی","ghost")}${Bt("p3","منظومه کوچک","ghost")}${Bt("p4","خوشه تصادفی","ghost")}${R("nsp","سرعت زمان",1,30,8)}${Bt("ntr","ردپا","ghost")}</div><div class="result" id="no">برای افزودن جرم تازه روی صفحه کلیک کن. انتگرال‌گیر: ورله سرعتی (پایستار)، با نرم‌سازی کوچک.</div>`;
 const W=1000,H=560,c=cv(h,W,H),x=c.getContext("2d");let bd=[],sc=220,tr=true,E0=0,tm=0;
@@ -95,7 +89,6 @@ loop(c,()=>{const n=+g("nsp").value;for(let i=0;i<n;i++)step(.002);tm+=n*.002;x.
 bd.forEach((b,i)=>{x.fillStyle=`hsl(${(i*67+200)%360} 85% 68%)`;x.shadowColor=x.fillStyle;x.shadowBlur=14;x.beginPath();x.arc(b.x*sc+W/2,b.y*sc+H/2,3+4*Math.cbrt(b.m),0,7);x.fill()});x.shadowBlur=0;
 const e=en_();g("no").innerHTML=`اجسام: ${bd.length} · زمان شبیه‌سازی: ${tm.toFixed(2)} · انرژی کل: ${e.toFixed(5)} · رانش انرژی: ${(Math.abs((e-E0)/E0)*100).toFixed(4)}٪`})};
 
-// آونگ دوگانه
 E["2-6"]=h=>{
 h.innerHTML=`<div class="ctl">${R("pa","زاویه اولیه (درجه)",10,179,120)}${R("pd","اختلاف دو آونگ (میلیونیوم رادیان)",1,1000,1)}${Bt("pgo","شروع دوباره")}</div><div class="result" id="po"></div>`;
 const W=1000,H=600,c=cv(h,W,H),x=c.getContext("2d");let A,B,TA,TB,t;
@@ -108,7 +101,6 @@ loop(c,()=>{for(let i=0;i<6;i++){A=rk(A,.004);B=rk(B,.004)}t+=.024;const pa=pos(
 x.fillStyle="#091321";x.fillRect(0,0,W,H);[[TA,"#a99aff",pa],[TB,"#f0bc72",pb]].forEach(([T,co,p])=>{x.strokeStyle=co;x.globalAlpha=.55;x.lineWidth=1.6;x.beginPath();T.forEach((q,i)=>i?x.lineTo(q[0],q[1]):x.moveTo(q[0],q[1]));x.stroke();x.globalAlpha=1;x.lineWidth=3;x.beginPath();x.moveTo(p[0],p[1]);x.lineTo(p[2],p[3]);x.lineTo(p[4],p[5]);x.stroke();x.fillStyle=co;[[p[2],p[3]],[p[4],p[5]]].forEach(q=>{x.beginPath();x.arc(q[0],q[1],9,0,7);x.fill()})});
 g("po").innerHTML=`زمان: ${t.toFixed(1)} s · اختلاف زاویه دو آونگ: ${Math.abs(A[1]-B[1]).toExponential(2)} rad<br><small>شرایط اولیه تقریباً یکسان است؛ اختلاف به‌تدریج رشد می‌کند (آشوب و اثر پروانه‌ای).</small>`})};
 
-// منظومه شمسی
 E["4-0"]=h=>{
 const D=[["عطارد",.387,.206,87.97,4879,3.7,"#b9b2a7"],["زهره",.723,.007,224.7,12104,8.87,"#e8c07a"],["زمین",1,.017,365.25,12742,9.81,"#5ab0ff"],["مریخ",1.524,.093,687,6779,3.71,"#e2735a"],["مشتری",5.203,.049,4332.6,139820,24.79,"#d9a878"],["زحل",9.537,.054,10759,116460,10.44,"#e6d29a"],["اورانوس",19.19,.047,30688,50724,8.69,"#8fe0e6"],["نپتون",30.07,.009,60182,49244,11.15,"#6f8cff"]];
 h.innerHTML=`<div class="ctl">${R("ts","سرعت زمان",0,100,40)}${Bt("tp","توقف / ادامه","ghost")}${Bt("tr","بازنشانی","ghost")}</div><div class="result" id="si"></div>`;
@@ -124,7 +116,6 @@ D.forEach((d,i)=>{const[,a,e]=d,f=rs(a)/a;x.strokeStyle=i===sel?"#ffffff55":"#ff
 P().forEach((p,i)=>{const d=D[i],r=Math.max(3,Math.min(12,3+Math.log10(d[4]/4e3)*5));x.fillStyle=d[6];x.shadowColor=d[6];x.shadowBlur=i===sel?20:8;x.beginPath();x.arc(p[0],p[1],r,0,7);x.fill();x.shadowBlur=0;if(i===5){x.strokeStyle=d[6];x.beginPath();x.ellipse(p[0],p[1],r*2,r*.6,-.4,0,7);x.stroke()}if(i===sel){x.fillStyle="#fff";x.font="13px Vazirmatn,Arial";x.textAlign="center";x.fillText(d[0],p[0],p[1]-r-8)}});
 x.fillStyle="#9aa8c0";x.font="13px Vazirmatn,Arial";x.textAlign="right";x.fillText(`زمان گذشته: ${(t/365.25).toFixed(2)} سال زمینی · روی هر سیاره کلیک کن`,W-14,H-12)})};
 
-// مسیریابی و ناوبری
 const om=window.openModule;window.openModule=function(li,mi){const from=state.view;cancelAnimationFrame(RAF);om(li,mi);const k=li+"-"+mi,t=$(".tool");
 $("#toolBack").onclick=()=>from==="detail"||from==="tool"?openLab(li):show(from);
 if(E[k]){[...t.children].slice(3).forEach(n=>n.remove());t.classList.add("wide");const d=document.createElement("div");d.id="eng";t.appendChild(d);E[k](d);t.insertAdjacentHTML("beforeend",`<div class="toolbuttons"><button class="btn ghost" id="favBtn">☆ نشان‌کردن این بخش</button></div>`);$("#favBtn").onclick=()=>toggleFav(k)}

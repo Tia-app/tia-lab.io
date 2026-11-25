@@ -1,7 +1,6 @@
 (()=>{
 const {E,R,Bt,cv,loop,pt,g}=TIA,TP=2*Math.PI;
 const setLab=(id,t)=>{g(id).parentNode.firstChild.textContent=t};
-// ───── آینه‌ها (پایه هشتم): تخت، مقعر، محدب
 const RAYS=(x,tip,X0,cy,im,real,dir,H)=>{const [tx,ty]=tip,[ix,iy]=im;[[X0,ty,"#f0bc72"],[X0,cy,"#51d5e8"]].forEach(([px,py,co])=>{x.strokeStyle=co;x.lineWidth=2;x.beginPath();x.moveTo(tx,ty);x.lineTo(px,py);x.stroke();let vx=ix-px,vy=iy-py;const L=Math.hypot(vx,vy)||1;vx/=L;vy/=L;const s=real?1:-1;x.beginPath();x.moveTo(px,py);x.lineTo(px+s*vx*(real?L+160:420),py+s*vy*(real?L+160:420));x.stroke();if(!real){x.setLineDash([6,6]);x.strokeStyle=co+"99";x.beginPath();x.moveTo(px,py);x.lineTo(ix,iy);x.stroke();x.setLineDash([])}})};
 const OPT=(key,lens)=>{E[key]=h=>{
 h.innerHTML=`<div class="ctl">${lens?Bt("a","شکست در سطح")+Bt("b","عدسی همگرا (محدب)","ghost")+Bt("c","عدسی واگرا (مقعر)","ghost"):Bt("a","آینه‌ی مقعر")+Bt("b","آینه‌ی محدب","ghost")+Bt("c","آینه‌ی تخت","ghost")}${R("fl","فاصله‌ی کانونی",40,200,110)}${R("ob","فاصله‌ی جسم",30,470,300)}</div><div class="result" id="oo"></div>`;
@@ -27,7 +26,6 @@ if(!sing&&Math.abs(xi)<5000){RAYS(x,[xo,cy-h0],X0,cy,[xi,cy-hi],real,dir,H);x.li
 const nm=lens?(md==="b"?"عدسی همگرا":"عدسی واگرا"):(md==="a"?"آینه‌ی مقعر":md==="b"?"آینه‌ی محدب":"آینه‌ی تخت");
 g("oo").innerHTML=sing?`${nm}: جسم در کانون است؛ پرتوها موازی می‌شوند و تصویری تشکیل نمی‌شود.`:`${nm}: تصویر <b>${real?"حقیقی":"مجازی"}</b> · <b>${m<0?"وارونه":"مستقیم"}</b> · <b>${Math.abs(Math.abs(m)-1)<.03?"هم‌اندازه":Math.abs(m)>1?"بزرگ‌تر":"کوچک‌تر"}</b> (بزرگ‌نمایی ${m.toFixed(2)})<br>فاصله‌ی تصویر ${q.toFixed(0)} · معادله: 1/f = 1/p + 1/q${Math.abs(f)<1e6&&f>0?` · ${p>2*f+1?"جسم دورتر از ۲F":p>f&&Math.abs(p-2*f)<=1?"جسم روی ۲F":p>f?"جسم بین F و ۲F":"جسم داخل F"}`:""}<br><small>جسم را روی صفحه بکش. ${lens?"":"در آینه‌ی تخت تصویر همیشه مجازی، مستقیم و هم‌اندازه است؛ فاصله‌ی تصویر تا آینه برابر فاصله‌ی جسم تا آینه است."}</small>`})}};
 OPT("2-2",false);OPT("2-9",true);
-// ───── مغناطیس و آهنربای الکتریکی
 E["2-6"]=h=>{
 h.innerHTML=`<div class="ctl">${Bt("m1","آهنربای میله‌ای")}${Bt("m2","آهنربای الکتریکی","ghost")}${R("ci","جریان (×۰٫۱ A)",0,30,15)}${R("cn","تعداد دورها",5,100,30)}${Bt("cf","هسته‌ی آهنی: روشن","ghost")}${Bt("cr","وارونه‌کردن جریان","ghost")}</div><div class="result" id="mo"></div>`;
 const W=1000,H=560,cy=280,cx=500,c=cv(h,W,H),x=c.getContext("2d");let md=1,core=true,sg=1,mp=[cx,90],th=0,ph=0;

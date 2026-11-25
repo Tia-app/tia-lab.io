@@ -8,17 +8,16 @@ const om=window.openModule;window.openModule=function(li,mi,pre){om(li,mi);TIA.p
 if(p)p.textContent=`${l.name} · بخش ${digits(mi+1)} از ۱۰ — ${l.desc}. ورودی‌ها را تغییر بده؛ نتیجه و نمودار هم‌زمان به‌روز می‌شوند و ورودی‌هایت در همین مرورگر ذخیره می‌ماند.`;
 try{app(pre||JSON.parse(localStorage.getItem(k)||"{}"))}catch{}
 t.addEventListener("input",()=>{try{localStorage.setItem(k,JSON.stringify(cap()))}catch{}});
-const tb=document.createElement("div");tb.className="tbar";tb.innerHTML='<button data-a="png">⬇ ذخیره تصویر</button><button data-a="cp">⎘ کپی نتیجه</button><button data-a="sh">🔗 لینک اشتراک</button><button data-a="fs">⛶ تمام‌صفحه</button><button data-a="ps">⏸ توقف انیمیشن</button><button data-a="rs">↺ مقادیر اولیه</button>';(p||t.firstChild).after(tb);
+const tb=document.createElement("div");tb.className="tbar";tb.innerHTML='<button data-a="png">ذخیره تصویر</button><button data-a="cp">کپی نتیجه</button><button data-a="sh">لینک اشتراک</button><button data-a="fs">تمام‌صفحه</button><button data-a="ps">توقف انیمیشن</button><button data-a="rs">مقادیر اولیه</button>';(p||t.firstChild).after(tb);
 tb.onclick=e=>{const a=e.target.dataset.a,c=t.querySelector("canvas");if(!a)return;
 if(a==="png"){if(!c)return toast("این بخش نمودار ندارد.");const z=document.createElement("a");z.href=c.toDataURL("image/png");z.download=`tia-${li}-${mi}.png`;z.click()}
 else if(a==="cp")cp(QA(".tool .result").map(x=>x.innerText).join("\n"));
 else if(a==="sh")cp(location.href.split("#")[0]+`#/${li}/${mi}~`+btoa(unescape(encodeURIComponent(JSON.stringify(cap())))));
 else if(a==="fs"){c?c.requestFullscreen&&c.requestFullscreen():toast("این بخش نمودار ندارد.")}
-else if(a==="ps"){TIA.pause=!TIA.pause;e.target.textContent=TIA.pause?"▶ ادامه انیمیشن":"⏸ توقف انیمیشن"}
+else if(a==="ps"){TIA.pause=!TIA.pause;e.target.textContent=TIA.pause?"ادامه انیمیشن":"توقف انیمیشن"}
 else if(a==="rs"){localStorage.removeItem(k);openModule(li,mi,{})}};
 const pn=document.createElement("div");pn.className="pn";pn.innerHTML=(mi>0?`<button class="btn ghost" data-n="-1">→ ${l.mods[mi-1]}</button>`:"<span></span>")+(mi<9?`<button class="btn ghost" data-n="1">${l.mods[mi+1]} ←</button>`:"<span></span>");t.appendChild(pn);
 pn.onclick=e=>{const n=e.target.dataset.n;if(n)openModule(li,mi+ +n)}};
-// جست‌وجوی سریع
 const pal=document.createElement("div");pal.id="pal";pal.innerHTML='<div><input placeholder="جست‌وجوی هر بخش یا آزمایشگاه…"><ul></ul></div>';document.body.appendChild(pal);const pi=pal.querySelector("input"),pu=pal.querySelector("ul"),all=[];let items=[],sel=0;
 labs.forEach((l,i)=>l.mods.forEach((m,j)=>all.push([i,j,m,l.name])));
 const rp=()=>{const q=pi.value.trim();items=all.filter(a=>(a[2]+a[3]).includes(q)).slice(0,40);sel=Math.min(sel,Math.max(0,items.length-1));pu.innerHTML=items.map((a,n)=>`<li class="${n===sel?"s":""}" data-n="${n}">${a[2]}<small>${a[3]}${E[a[0]+"-"+a[1]]?" · موتور زنده":""}</small></li>`).join("")||"<li>موردی پیدا نشد.</li>"};

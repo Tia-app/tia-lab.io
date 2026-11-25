@@ -1,7 +1,3 @@
-#!/usr/bin/env python3
-"""ساخت صفحه‌های ایستای سئو، sitemap.xml و robots.txt.
-اجرا (از ریشه پروژه):  python3 tools/seo_build.py https://tia-app.github.io/tia-lab.io
-"""
 import re,sys,os,datetime,html
 BASE=(sys.argv[1] if len(sys.argv)>1 else "https://tia-app.github.io/tia-lab.io").rstrip("/")
 ROOT=os.path.dirname(os.path.dirname(os.path.abspath(__file__)))

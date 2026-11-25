@@ -1,6 +1,5 @@
 (()=>{
 const {E,F,R,Bt,cv,loop,pt,g}=TIA;
-// مسیریابی روی شبکه
 const PF=(k,terr)=>{E[k]=h=>{
 h.innerHTML=`<div class="ctl">${[["bfs","BFS"],["dij","دایکسترا"],["ast","A*"],["gre","حریصانه"]].map(([a,l])=>Bt("a_"+a,l,a==="ast"?"primary":"ghost")).join("")}${Bt("rw","دیوار تصادفی","ghost")}${terr?Bt("rt","زمین تصادفی","ghost"):""}${Bt("rc","پاک","ghost")}${R("sp","سرعت",1,100,70)}</div><div class="result" id="po"></div>`;
 const C=30,N=16,cs=33,W=C*cs,H=N*cs,c=cv(h,W,H),x=c.getContext("2d"),S=2+8*C,G=27+8*C;
@@ -25,7 +24,6 @@ for(let i=0;i<Math.min(v,r.cl.length);i++){const u=r.cl[i];x.fillStyle="rgba(81,
 if(v>r.cl.length)for(let i=0;i<Math.min(pv/2,r.p.length);i++){const u=r.p[i];x.fillStyle="#f0bc72";x.beginPath();x.arc(u%C*cs+cs/2,(u/C|0)*cs+cs/2,cs*.28,0,7);x.fill()}
 [[S,"#59d6a3"],[G,"#f27d8d"]].forEach(([u,co])=>{x.fillStyle=co;x.shadowColor=co;x.shadowBlur=14;x.beginPath();x.arc(u%C*cs+cs/2,(u/C|0)*cs+cs/2,cs*.36,0,7);x.fill();x.shadowBlur=0})})}};
 PF("1-3",false);PF("1-5",true);
-// آزمایشگاه JavaScript
 E["3-8"]=h=>{const ex={"فیبوناچی":"const f=n=>n<2?n:f(n-1)+f(n-2);\nconsole.log(f(25));\nreturn [0,1,2,3,4,5].map(f)","اعداد اول":"const p=[];\nfor(let i=2;p.length<15;i++)if(p.every(q=>i%q))p.push(i);\nreturn p","آمار":"const a=[4,8,6,5,3,9,10];\nconst m=a.reduce((s,x)=>s+x)/a.length;\nreturn {mean:m,max:Math.max(...a)}"};
 h.innerHTML=`<div class="ctl">${Object.keys(ex).map(k=>Bt("e_"+k,k,"ghost")).join("")}${Bt("jr","اجرا")}</div><div class="field"><label>کد JavaScript (می‌توانی return بنویسی؛ در محیط جدا اجرا می‌شود)</label><textarea id="jc" rows="9" dir="ltr">${ex["فیبوناچی"]}</textarea></div><div class="result mono" id="jo" style="white-space:pre-wrap"></div><div id="jh"></div>`;
 const hist=[];Object.keys(ex).forEach(k=>g("e_"+k).onclick=()=>{g("jc").value=ex[k];run()});
@@ -33,7 +31,6 @@ const src=`onmessage=e=>{const o=[],c={log:(...a)=>o.push(a.map(q=>typeof q==="o
 const run=()=>{const w=new Worker(URL.createObjectURL(new Blob([src])));const kill=setTimeout(()=>{w.terminate();g("jo").textContent="زمان اجرا از ۲ ثانیه گذشت و متوقف شد."},2000);
 w.onmessage=e=>{clearTimeout(kill);w.terminate();const d=e.data;g("jo").textContent=(d.o.length?d.o.join("\n")+"\n":"")+(d.err?"خطا: "+d.err:d.r?"← "+d.r:"")+`\n(${d.t.toFixed(2)} ms)`;hist.push(d.t);if(hist.length>12)hist.shift();const mx=Math.max(...hist,.01);g("jh").innerHTML=hist.map(t=>`<div class="bar"><i style="width:${t/mx*100}%"></i></div>`).join("")};w.postMessage(g("jc").value)};
 g("jr").onclick=run;run()};
-// سازنده صفحه وب
 E["3-9"]=h=>{h.innerHTML=`<div class="ctl">${F("ht","عنوان صفحه","صفحه من")}${F("hb","متن اصلی","به آزمایشگاه تیا خوش آمدید")}${F("hc","رنگ تأکید","#7c6cf0")}${Bt("hd","دانلود HTML")}${Bt("hp","کپی کد","ghost")}</div><iframe id="hf" sandbox style="width:100%;height:280px;border:1px solid #263249;border-radius:10px;background:#fff"></iframe><pre class="result mono" id="hs" style="white-space:pre-wrap;max-height:260px;overflow:auto"></pre>`;
 const esc=s=>s.replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c])),build=()=>{const t=esc(g("ht").value),b=esc(g("hb").value),col=/^#[0-9a-f]{3,8}$/i.test(g("hc").value)?g("hc").value:"#7c6cf0";return`<!DOCTYPE html>\n<html lang="fa" dir="rtl">\n<head>\n<meta charset="UTF-8">\n<meta name="viewport" content="width=device-width, initial-scale=1">\n<title>${t}</title>\n<meta name="description" content="${b.slice(0,150)}">\n<style>body{font-family:Tahoma,sans-serif;margin:0;background:#0d1220;color:#edf2ff}header{padding:48px 24px;background:${col}}main{max-width:720px;margin:auto;padding:24px;line-height:2}</style>\n</head>\n<body>\n<header><h1>${t}</h1></header>\n<main><p>${b}</p></main>\n</body>\n</html>`};
 const r=()=>{const s=build();g("hf").srcdoc=s;g("hs").textContent=s};["ht","hb","hc"].forEach(i=>g(i).oninput=r);
