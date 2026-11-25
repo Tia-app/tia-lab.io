@@ -1,2 +1,4 @@
 User-agent: *
 Allow: /
+
+Sitemap: https://tia-app.github.io/tia-lab.io/sitemap.xml

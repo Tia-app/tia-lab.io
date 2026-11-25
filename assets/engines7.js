@@ -1,0 +1,83 @@
+(()=>{
+const {E,F,R,Bt,cv,loop,pt,g,L,en}=TIA,N=id=>Number(en(g(id).value)),TP=2*Math.PI;
+const plen=p=>p.slice(1).reduce((s,q,i)=>s+Math.hypot(q[0]-p[i][0],q[1]-p[i][1]),0);
+const pos=(p,s)=>{for(let i=1;i<p.length;i++){const d=Math.hypot(p[i][0]-p[i-1][0],p[i][1]-p[i-1][1]);if(s<=d||i===p.length-1){const f=d?Math.min(1,s/d):0;return[p[i-1][0]+(p[i][0]-p[i-1][0])*f,p[i-1][1]+(p[i][1]-p[i-1][1])*f,Math.atan2(p[i][1]-p[i-1][1],p[i][0]-p[i-1][0])]}s-=d}return[...p.at(-1),0]};
+const mid=p=>pos(p,plen(p)/2);
+// ───── مدار DC و کیرشهف
+E["2-3"]=h=>{
+const TPL={ser:{nn:4,src:[[150,420],[150,100]],ed:[{a:1,b:2,r:"r1",p:[[150,100],[450,100]]},{a:2,b:3,r:"r2",p:[[450,100],[750,100]]},{a:3,b:0,r:"r3",p:[[750,100],[750,420],[150,420]]}]},
+par:{nn:2,src:[[150,420],[150,100]],ed:[{a:1,b:0,r:"r1",p:[[150,100],[350,100],[350,420],[150,420]]},{a:1,b:0,r:"r2",p:[[150,115],[550,115],[550,405],[150,405]]},{a:1,b:0,r:"r3",p:[[150,130],[750,130],[750,390],[150,390]]}]},
+bri:{nn:4,src:[[850,260],[850,490],[150,490],[150,260]],ed:[{a:1,b:2,r:"r1",p:[[150,260],[450,100]]},{a:1,b:3,r:"r2",p:[[150,260],[450,420]]},{a:2,b:0,r:"r3",p:[[450,100],[850,260]]},{a:3,b:0,r:"r4",p:[[450,420],[850,260]]},{a:2,b:3,r:"r5",p:[[450,100],[450,420]]}]}};
+h.innerHTML=`<div class="ctl">${Bt("ser","سری")}${Bt("par","موازی","ghost")}${Bt("bri","پل ویتستون","ghost")}</div><div class="ctl">${F("v","ولتاژ منبع (V)",12)}${F("r1","R1 (Ω)",100)}${F("r2","R2 (Ω)",200)}${F("r3","R3 (Ω)",300)}${F("r4","R4 (Ω)",400)}${F("r5","R5 پل (Ω)",500)}</div><div class="result" id="dco"></div>`;
+const W=1000,H=520,c=cv(h,W,H),x=c.getContext("2d");let tp="ser",S,ph=[0,0,0,0,0,0];
+const calc=()=>{try{const T=TPL[tp],V=N("v"),Rv={};["r1","r2","r3","r4","r5"].forEach(k=>{Rv[k]=N(k);if(!(Rv[k]>0))throw Error("مقاومت‌ها باید مثبت باشند")});
+const n=T.nn,G=Array.from({length:n},()=>Array(n).fill(0));T.ed.forEach(e=>{const q=1/Rv[e.r];G[e.a][e.a]+=q;G[e.b][e.b]+=q;G[e.a][e.b]-=q;G[e.b][e.a]-=q});
+const u=[];for(let i=2;i<n;i++)u.push(i);const m=u.length,M=u.map(i=>[...u.map(j=>G[i][j]),-G[i][1]*V]);
+for(let k=0;k<m;k++){let p=k;for(let r=k+1;r<m;r++)if(Math.abs(M[r][k])>Math.abs(M[p][k]))p=r;[M[k],M[p]]=[M[p],M[k]];for(let r=0;r<m;r++)if(r!==k){const f=M[r][k]/M[k][k];for(let j=k;j<=m;j++)M[r][j]-=f*M[k][j]}}
+const Vn=[0,V,...M.map((r,i)=>r[m]/r[i])],I=T.ed.map(e=>(Vn[e.a]-Vn[e.b])/Rv[e.r]);let It=0;T.ed.forEach((e,i)=>{if(e.a===1)It+=I[i];if(e.b===1)It-=I[i]});
+S={T,V,Rv,Vn,I,It};const rows=T.ed.map((e,i)=>`${e.r.toUpperCase()}: V=${(Vn[e.a]-Vn[e.b]).toFixed(3)} V · I=${(I[i]*1e3).toFixed(2)} mA · P=${(I[i]**2*Rv[e.r]*1e3).toFixed(2)} mW`).join("<br>");
+g("dco").innerHTML=`جریان کل <b>${(It*1e3).toFixed(3)} mA</b> · مقاومت معادل ${(V/It).toFixed(2)} Ω · توان منبع ${(V*It*1e3).toFixed(2)} mW<br>${rows}<br><small>قانون جریان کیرشهف (KCL) در گره‌ها با حل ماتریسی گره‌ها برقرار است.${tp==="bri"?(Math.abs(I[4])<1e-9?" · پل متعادل است (R1·R4 = R2·R3).":" · پل نامتعادل است؛ جریان R5 صفر نیست."):""}</small>`}catch(e){S=null;g("dco").textContent="خطا: "+e.message}};
+["ser","par","bri"].forEach(k=>g(k).onclick=()=>{["ser","par","bri"].forEach(z=>g(z).className="btn "+(z===k?"primary":"ghost"));tp=k;calc()});["v","r1","r2","r3","r4","r5"].forEach(k=>g(k).oninput=calc);calc();
+loop(c,dt=>{x.fillStyle="#091321";x.fillRect(0,0,W,H);if(!S)return;const{T,I,V}=S,im=Math.max(1e-9,...I.map(Math.abs),Math.abs(S.It));
+const dr=(p,i,cu,lab,res)=>{const a=Math.min(1,.18+.82*Math.abs(cu)/im);x.lineWidth=4;x.strokeStyle=`rgba(240,188,114,${a})`;x.beginPath();p.forEach((q,j)=>j?x.lineTo(q[0],q[1]):x.moveTo(q[0],q[1]));x.stroke();
+ph[i]=(ph[i]+Math.min(260,Math.abs(cu)/im*240+8)*dt)%28;const len=plen(p);x.fillStyle="#51d5e8";for(let s=ph[i];s<len;s+=28){const q=pos(p,cu>=0?s:len-s);x.beginPath();x.arc(q[0],q[1],3.2,0,7);x.fill()}
+const m=mid(p);x.save();x.translate(m[0],m[1]);if(res){x.rotate(m[2]);x.fillStyle="#1b2540";x.strokeStyle="#a99aff";x.lineWidth=2;x.fillRect(-26,-11,52,22);x.strokeRect(-26,-11,52,22);x.restore();x.fillStyle="#fff";x.font="12px Vazirmatn,Arial";x.textAlign="center";x.fillText(lab[0],m[0],m[1]-16);x.fillStyle="#9aa8c0";x.fillText(lab[1],m[0],m[1]+26)}else{x.restore()}};
+T.ed.forEach((e,i)=>dr(e.p,i,I[i],[e.r.toUpperCase()+" = "+S.Rv[e.r]+"Ω",(I[i]*1e3).toFixed(1)+" mA"],1));
+dr(T.src,5,S.It,[""],0);const m=mid(T.src);x.save();x.translate(m[0],m[1]);x.fillStyle="#091321";x.fillRect(-26,-26,52,52);x.strokeStyle="#59d6a3";x.lineWidth=3;x.beginPath();x.arc(0,0,22,0,7);x.stroke();x.restore();x.fillStyle="#59d6a3";x.font="bold 15px Arial";x.textAlign="center";x.fillText(V+"V",m[0],m[1]+5);
+x.fillStyle="#f0bc72";x.font="12px Arial";[...new Set(T.ed.flatMap(e=>[e.a,e.b]))].forEach(k=>{const e=T.ed.find(q=>q.a===k),q=e?e.p[0]:null;if(q&&k>0&&k!==1)x.fillText(S.Vn[k].toFixed(2)+"V",q[0]+4,q[1]-8)})})};
+// ───── RC و RL گذرا
+E["2-4"]=h=>{
+h.innerHTML=`<div class="ctl">${Bt("tr","RC")}${Bt("tl","RL","ghost")}${F("v","ولتاژ منبع (V)",10)}${F("r","R (Ω)",1000)}${F("x","C (µF) یا L (mH)",100)}</div><div class="result" id="tro"></div>`;
+const W=1000,H=520,c=cv(h,W,H),x=c.getContext("2d");let rl=false,t=0,tau=.1;
+["tr","tl"].forEach(k=>g(k).onclick=()=>{rl=k==="tl";g("tr").className="btn "+(rl?"ghost":"primary");g("tl").className="btn "+(rl?"primary":"ghost")});
+const fx=u=>{const x5=1-Math.exp(-5);return u<5?1-Math.exp(-u):x5*Math.exp(-(u-5))};const fd=u=>u<5?Math.exp(-u):-x5_*Math.exp(-(u-5));const x5_=1-Math.exp(-5);
+loop(c,dt=>{const V=N("v"),Rr=N("r"),X=N("x");tau=rl?X*1e-3/Rr:Rr*X*1e-6;if(!(tau>0)){g("tro").textContent="مقادیر باید مثبت باشند.";return}t=(t+dt*2)%10;
+const A=u=>fx(u),B=u=>u<5?Math.exp(-u):-x5_*Math.exp(-(u-5));
+g("tro").innerHTML=`ثابت زمانی τ = ${rl?"L/R":"RC"} = <b>${(tau*1e3).toPrecision(4)} ms</b> · بیشینه‌ی جریان ${(V/Rr*1e3).toFixed(2)} mA · در ${t.toFixed(1)}τ: ${rl?"جریان":"ولتاژ خازن"} = ${(A(t)*100).toFixed(1)}٪ مقدار نهایی<br>انرژی ذخیره‌شده در پایان شارژ: ${rl?(.5*X*1e-3*(V/Rr)**2*1e6).toFixed(2)+" µJ":(.5*X*1e-6*V*V*1e6).toFixed(2)+" µJ"}`;
+x.fillStyle="#091321";x.fillRect(0,0,W,H);const m=60,T=30,Bt_=H-50,Rt=W-260,px=u=>m+u/10*(Rt-m),py=y=>(Bt_+T)/2-y*(Bt_-T)/2*.92;x.strokeStyle="#223051";x.lineWidth=1;for(let u=0;u<=10;u++){x.beginPath();x.moveTo(px(u),T);x.lineTo(px(u),Bt_);x.stroke();x.fillStyle="#6d7c98";x.font="12px Arial";x.textAlign="center";x.fillText(u+"τ",px(u),H-28)}x.strokeStyle="#4a5a7c";x.beginPath();x.moveTo(m,py(0));x.lineTo(Rt,py(0));x.stroke();
+[[A,"#51d5e8"],[B,"#f0bc72"]].forEach(([f,co])=>{x.strokeStyle=co;x.lineWidth=2.8;x.beginPath();for(let i=0;i<=400;i++){const u=i/40,q=[px(u),py(f(u))];i?x.lineTo(q[0],q[1]):x.moveTo(q[0],q[1])}x.stroke();x.fillStyle=co;x.beginPath();x.arc(px(t),py(f(t)),7,0,7);x.fill()});
+x.strokeStyle="#ffffff44";x.setLineDash([4,5]);x.beginPath();x.moveTo(px(t),T);x.lineTo(px(t),Bt_);x.stroke();x.setLineDash([]);x.font="13px Vazirmatn,Arial";x.textAlign="right";x.fillStyle="#51d5e8";x.fillText(rl?"جریان i(t)":"ولتاژ خازن v(t)",Rt,T-8);x.fillStyle="#f0bc72";x.fillText(rl?"ولتاژ سلف v(t)":"جریان i(t)",Rt,T+10);x.fillStyle="#9aa8c0";x.fillText("کلید روشن تا ۵τ، سپس خاموش",Rt,H-8);
+const cx=W-120,ch=A(t);x.strokeStyle="#a99aff";x.lineWidth=4;if(!rl){x.beginPath();x.moveTo(cx-50,170);x.lineTo(cx+50,170);x.moveTo(cx-50,200);x.lineTo(cx+50,200);x.stroke();x.fillStyle=`rgba(81,213,232,${.15+.7*ch})`;x.fillRect(cx-50,172,100,26);x.fillStyle="#fff";x.textAlign="center";x.fillText("خازن "+(ch*100).toFixed(0)+"٪",cx,240)}else{x.beginPath();for(let i=0;i<=360;i+=6){const a=i*Math.PI/180*3,q=[cx-50+i/360*100,185-Math.abs(Math.sin(a))*26];i?x.lineTo(q[0],q[1]):x.moveTo(q[0],q[1])}x.stroke();x.fillStyle=`rgba(240,188,114,${.15+.7*ch})`;x.fillRect(cx-50,210,100*ch,10);x.fillStyle="#fff";x.textAlign="center";x.fillText("سلف "+(ch*100).toFixed(0)+"٪",cx,250)}})};
+// ───── الکتریسیته ساکن
+E["2-7"]=h=>{
+h.innerHTML=`<div class="ctl">${Bt("cp","＋ بار مثبت")}${Bt("cn","－ بار منفی","ghost")}${Bt("cd","دوقطبی","ghost")}${Bt("cc","پاک","ghost")}${R("cq","اندازه بار (µC)",1,20,5)}</div><div class="result" id="eo"></div>`;
+const W=1000,H=560,c=cv(h,W,H),x=c.getContext("2d"),o=document.createElement("canvas");o.width=250;o.height=140;const ox=o.getContext("2d"),im=ox.createImageData(250,140);let Q=[{x:380,y:280,q:5},{x:620,y:280,q:-5}],sg=1,dr=null,mp=[500,120],dirty=1,tc=null;
+const Ef=(X,Y)=>{let ex=0,ey=0,v=0;for(const q of Q){const dx=X-q.x,dy=Y-q.y,r2=dx*dx+dy*dy+25,r=Math.sqrt(r2);ex+=q.q*dx/(r2*r);ey+=q.q*dy/(r2*r);v+=q.q/r}return[ex,ey,v]};
+const hit=p=>Q.findIndex(q=>Math.hypot(q.x-p[0],q.y-p[1])<18);
+["cp","cn"].forEach(k=>g(k).onclick=()=>{sg=k==="cp"?1:-1;g("cp").className="btn "+(sg>0?"primary":"ghost");g("cn").className="btn "+(sg<0?"primary":"ghost")});
+g("cc").onclick=()=>{Q=[];dirty=1};g("cd").onclick=()=>{Q=[{x:400,y:280,q:5},{x:600,y:280,q:-5}];dirty=1};
+c.onpointerdown=e=>{const p=pt(c,e),i=hit(p);if(e.detail>1&&i>=0){Q.splice(i,1)}else if(i>=0)dr=i;else Q.push({x:p[0],y:p[1],q:sg*N("cq")});dirty=1;c.setPointerCapture(e.pointerId)};c.onpointerup=()=>dr=null;
+c.onpointermove=e=>{mp=pt(c,e);if(dr!==null){Q[dr].x=mp[0];Q[dr].y=mp[1];dirty=1}};
+const trace=(sx,sy,s)=>{const L_=[[sx,sy]];let X=sx,Y=sy;for(let i=0;i<500;i++){const[ex,ey]=Ef(X,Y),m=Math.hypot(ex,ey);if(m<1e-9)break;X+=s*ex/m*5;Y+=s*ey/m*5;L_.push([X,Y]);if(X<0||X>W||Y<0||Y>H||Q.some(q=>q.q*-s*-1<0&&Math.hypot(q.x-X,q.y-Y)<10))break}return L_};
+loop(c,dt=>{if(dirty){for(let j=0;j<140;j++)for(let i=0;i<250;i++){const v=Ef(i*4+2,j*4+2)[2],s=Math.tanh(v*10),k=(j*250+i)*4;im.data[k]=s>0?20+s*200:20;im.data[k+1]=20+Math.abs(s)*40;im.data[k+2]=s<0?30-s*210:50+s*20;im.data[k+3]=255}ox.putImageData(im,0,0);dirty=0}
+x.drawImage(o,0,0,W,H);const pos_=Q.filter(q=>q.q>0),src=pos_.length?pos_:Q.filter(q=>q.q<0),s=pos_.length?1:-1;x.lineWidth=1.3;x.strokeStyle="rgba(255,255,255,.55)";
+src.forEach(q=>{const n=Math.round(10+Math.abs(q.q));for(let k=0;k<n;k++){const a=k/n*TP,l=trace(q.x+14*Math.cos(a),q.y+14*Math.sin(a),s);x.beginPath();l.forEach((p,j)=>j?x.lineTo(p[0],p[1]):x.moveTo(p[0],p[1]));x.stroke();if(l.length>40){const p=l[30],p2=l[32],an=Math.atan2(p2[1]-p[1],p2[0]-p[0]);x.save();x.translate(p[0],p[1]);x.rotate(an);x.fillStyle="#fff";x.beginPath();x.moveTo(6,0);x.lineTo(-4,4);x.lineTo(-4,-4);x.fill();x.restore()}}});
+Q.forEach(q=>{x.fillStyle=q.q>0?"#ff6b81":"#5ab0ff";x.shadowColor=x.fillStyle;x.shadowBlur=18;x.beginPath();x.arc(q.x,q.y,10+Math.abs(q.q)*.6,0,7);x.fill();x.shadowBlur=0;x.fillStyle="#fff";x.font="bold 14px Arial";x.textAlign="center";x.fillText(q.q>0?"+":"−",q.x,q.y+5)});
+if(Q.length&&src.length){if(!tc||tc.t>12){const q=src[Math.random()*src.length|0],a=Math.random()*TP;tc={x:q.x+14*Math.cos(a),y:q.y+14*Math.sin(a),t:0}}const[ex,ey]=Ef(tc.x,tc.y),m=Math.hypot(ex,ey)||1;tc.x+=s*ex/m*150*dt;tc.y+=s*ey/m*150*dt;tc.t+=dt;if(Q.some(q=>q.q*s<0&&Math.hypot(q.x-tc.x,q.y-tc.y)<12)||tc.x<0||tc.x>W||tc.y<0||tc.y>H)tc.t=99;x.fillStyle="#f0bc72";x.shadowColor="#f0bc72";x.shadowBlur=12;x.beginPath();x.arc(tc.x,tc.y,5,0,7);x.fill();x.shadowBlur=0}
+const[ex,ey,v]=Ef(mp[0],mp[1]),k=8.99e9;let f="";if(Q.length>=2){const d=Math.hypot(Q[0].x-Q[1].x,Q[0].y-Q[1].y),F_=8.99e3*Math.abs(Q[0].q*Q[1].q)/(d*d);f=` · نیروی کولن بین دو بار اول: <b>${F_.toFixed(2)} N</b> (${Q[0].q*Q[1].q<0?"جاذبه":"دافعه"})`}
+g("eo").innerHTML=`کلیک: افزودن بار · کشیدن: جابه‌جایی · دوبار کلیک: حذف · هر پیکسل = ۱ میلی‌متر<br>در نشانگر: |E| = ${(k*Math.hypot(ex,ey)/1e3).toExponential(2)} kV/m · پتانسیل V = ${(8.99e6*v/1e3).toFixed(2)} kV${f}`})};
+// ───── نیروی لورنتس
+E["2-8"]=h=>{
+h.innerHTML=`<div class="ctl">${Bt("pr","پروتون")}${Bt("el","الکترون","ghost")}${Bt("al","آلفا","ghost")}${R("b","میدان مغناطیسی B (mT)",1,100,20)}${R("ee","میدان الکتریکی E (kV/m)",0,100,0)}${R("vv","سرعت اولیه (km/s)",10,2000,500)}${Bt("rs","پرتاب دوباره","ghost")}</div><div class="result" id="lo"></div>`;
+const W=1000,H=560,c=cv(h,W,H),x=c.getContext("2d"),Pm={pr:[9.579e7,"پروتون"],el:[-1.7588e11,"الکترون"],al:[4.82e7,"آلفا"]};let k="pr",s,tr=[];
+const init=()=>{s={x:0,y:0,vx:N("vv")*1e3,vy:0};tr=[]};["pr","el","al"].forEach(z=>g(z).onclick=()=>{k=z;["pr","el","al"].forEach(a=>g(a).className="btn "+(a===z?"primary":"ghost"));init()});g("rs").onclick=init;init();
+loop(c,()=>{const qm=Pm[k][0],B=g("b").value*1e-3,Ev=g("ee").value*1e3,w=Math.abs(qm*B),T=TP/w,r0=Math.hypot(N("vv")*1e3)/w,dt=T/150,tt=qm*B*dt/2,ss=2*tt/(1+tt*tt);
+for(let i=0;i<3;i++){let vx=s.vx,vy=s.vy+qm*Ev*dt/2;const ax=vx+vy*tt,ay=vy-vx*tt;vx=vx+ay*ss;vy=vy-ax*ss;vy+=qm*Ev*dt/2;s.vx=vx;s.vy=vy;s.x+=vx*dt;s.y+=vy*dt;tr.push([s.x,s.y])}if(tr.length>1500)tr.splice(0,tr.length-1500);
+const cam=tr.slice(-150).reduce((a,p)=>[a[0]+p[0]/Math.min(150,tr.length),a[1]+p[1]/Math.min(150,tr.length)],[0,0]),sc=Math.min(2e3,130/r0),T_=p=>[W/2+(p[0]-cam[0])*sc,H/2-(p[1]-cam[1])*sc];
+x.fillStyle="#091321";x.fillRect(0,0,W,H);x.fillStyle="#2c3a5e";x.font="18px Arial";x.textAlign="center";for(let i=40;i<W;i+=80)for(let j=40;j<H;j+=80)x.fillText("×",i,j+6);
+x.lineWidth=2.4;x.strokeStyle="#a99aff";x.beginPath();tr.forEach((p,i)=>{const q=T_(p);i?x.lineTo(q[0],q[1]):x.moveTo(q[0],q[1])});x.stroke();const q=T_([s.x,s.y]);x.fillStyle=qm>0?"#ff6b81":"#5ab0ff";x.shadowColor=x.fillStyle;x.shadowBlur=18;x.beginPath();x.arc(q[0],q[1],9,0,7);x.fill();x.shadowBlur=0;
+const vm=Math.hypot(s.vx,s.vy);x.strokeStyle="#59d6a3";x.lineWidth=3;x.beginPath();x.moveTo(q[0],q[1]);x.lineTo(q[0]+s.vx/vm*60,q[1]-s.vy/vm*60);x.stroke();x.fillStyle="#9aa8c0";x.font="13px Vazirmatn,Arial";x.fillText("× میدان مغناطیسی رو به صفحه · سبز: بردار سرعت",W/2,H-14);
+g("lo").innerHTML=`${Pm[k][1]}: شعاع r = mv/(|q|B) = <b>${r0<1?(r0*100).toFixed(2)+" cm":r0.toFixed(2)+" m"}</b> · دوره T = ${(T*1e6).toFixed(3)} µs · بسامد سیکلوترون f = ${(w/TP/1e6).toFixed(3)} MHz<br>${Ev?`رانش E×B ≈ ${(Ev/B/1e3).toFixed(1)} km/s (مستقل از بار و جرم)`:"با E=0 ذره روی دایره می‌چرخد و انرژی جنبشی ثابت می‌ماند (نیروی مغناطیسی کار نمی‌کند)."}`})};
+// ───── RLC و تشدید
+E["2-9"]=h=>{
+h.innerHTML=`<div class="ctl">${F("v","ولتاژ (V)",10)}${F("r","R (Ω)",10)}${F("l","L (mH)",10)}${F("cc","C (µF)",10)}${R("f","بسامد (حول f₀، مقیاس لگاریتمی)",0,100,50)}</div><div class="result" id="ro"></div>`;
+const W=1000,H=520,c=cv(h,W,H),x=c.getContext("2d");let t=0;
+loop(c,dt=>{t+=dt*1.4;const V=N("v"),Rr=N("r"),Lh=N("l")*1e-3,C=N("cc")*1e-6;if(!(Rr>0&&Lh>0&&C>0)){g("ro").textContent="مقادیر باید مثبت باشند.";return}
+const f0=1/(TP*Math.sqrt(Lh*C)),w0=TP*f0,Q=w0*Lh/Rr,f=f0*10**((g("f").value-50)/50),w=TP*f,XL=w*Lh,XC=1/(w*C),Z=Math.hypot(Rr,XL-XC),I=V/Z,ph=Math.atan2(XL-XC,Rr),IA=ff=>{const ww=TP*ff;return V/Math.hypot(Rr,ww*Lh-1/(ww*C))};
+g("ro").innerHTML=`f₀ = <b>${f0.toFixed(1)} Hz</b> · Q = ${Q.toFixed(2)} · پهنای باند ≈ ${(f0/Q).toFixed(1)} Hz<br>در f = ${f.toFixed(1)} Hz: |Z| = ${Z.toFixed(2)} Ω · I = ${(I*1e3).toFixed(2)} mA · اختلاف فاز ${(ph*180/Math.PI).toFixed(1)}° (${ph>0.01?"القایی":ph<-0.01?"خازنی":"تشدید، مقاومتی"}) · توان میانگین ${(.5*I*I*Rr*1e3).toFixed(2)} mW`;
+x.fillStyle="#091321";x.fillRect(0,0,W,H);const m=60,Rt=600,T=30,B=H-50,lo=Math.log10(f0/10),hi=Math.log10(f0*10),px=ff=>m+(Math.log10(ff)-lo)/(hi-lo)*(Rt-m),mx=V/Rr,py=i=>B-i/mx*(B-T)*.95;x.strokeStyle="#223051";x.strokeRect(m,T,Rt-m,B-T);
+x.strokeStyle="#a99aff";x.lineWidth=2.8;x.beginPath();for(let i=0;i<=300;i++){const ff=10**(lo+(hi-lo)*i/300),q=[px(ff),py(IA(ff))];i?x.lineTo(q[0],q[1]):x.moveTo(q[0],q[1])}x.stroke();
+x.strokeStyle="#f0bc7299";x.setLineDash([5,5]);x.beginPath();x.moveTo(px(f0),T);x.lineTo(px(f0),B);x.stroke();x.setLineDash([]);x.fillStyle="#51d5e8";x.beginPath();x.arc(px(f),py(I),8,0,7);x.fill();x.fillStyle="#9aa8c0";x.font="12px Vazirmatn,Arial";x.textAlign="center";x.fillText("f₀",px(f0),B+16);x.fillText("جریان بر حسب بسامد (لگاریتمی)",(m+Rt)/2,H-8);
+const cx=800,cy=270,sc=105/Math.max(V,I*XL,I*XC),A=[[I*Rr,0,"#59d6a3","V_R"],[I*XL,Math.PI/2,"#f0bc72","V_L"],[I*XC,-Math.PI/2,"#5ab0ff","V_C"]];x.strokeStyle="#223051";x.beginPath();x.arc(cx,cy,115,0,7);x.stroke();
+const sum=[0,0];A.forEach(([a,ang,co,lb])=>{const X=a*sc*Math.cos(ang+t),Y=-a*sc*Math.sin(ang+t);x.strokeStyle=co;x.lineWidth=3;x.beginPath();x.moveTo(cx,cy);x.lineTo(cx+X,cy+Y);x.stroke();x.fillStyle=co;x.fillText(lb,cx+X*1.12,cy+Y*1.12);sum[0]+=X;sum[1]+=Y});x.strokeStyle="#fff";x.lineWidth=3.4;x.beginPath();x.moveTo(cx,cy);x.lineTo(cx+sum[0],cy+sum[1]);x.stroke();x.fillStyle="#fff";x.fillText("V کل",cx+sum[0]*1.1,cy+sum[1]*1.1);x.fillStyle="#9aa8c0";x.fillText("نمودار فازوری (چرخان)",cx,H-8)})};
+})();

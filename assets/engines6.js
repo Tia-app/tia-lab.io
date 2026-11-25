@@ -1,0 +1,31 @@
+(()=>{
+const {E}=TIA,Q=s=>document.querySelector(s),QA=s=>[...document.querySelectorAll(s)];let cur=null;
+const st=document.createElement("style");st.textContent=`.tbar{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0}.tbar button{border:1px solid var(--line);background:#ffffff0a;border-radius:9px;padding:7px 12px;font-size:12px;transition:.2s}.tbar button:hover{border-color:#9c8cff;background:#9c8cff22}.pn{display:flex;justify-content:space-between;gap:10px;margin-top:18px}#pal{position:fixed;inset:0;background:#000a;backdrop-filter:blur(6px);z-index:60;display:none;align-items:flex-start;justify-content:center;padding-top:12vh}#pal.on{display:flex}#pal>div{width:min(620px,92vw);background:#111a2a;border:1px solid #766bcb;border-radius:16px;overflow:hidden;box-shadow:0 30px 90px #000a}#pal input{width:100%;border:0;border-bottom:1px solid var(--line);background:none;color:var(--text);padding:18px;font-size:16px;outline:0}#pal li{list-style:none;padding:11px 18px;cursor:pointer;display:flex;justify-content:space-between;font-size:14px}#pal li.s{background:#9c8cff26}#pal ul{margin:0;padding:0;max-height:50vh;overflow:auto}#pal small{color:var(--muted)}`;document.head.appendChild(st);
+const cap=()=>{const o={};QA(".tool input[id],.tool select[id],.tool textarea[id]").forEach(e=>o[e.id]=e.value);return o};
+const app=o=>Object.entries(o).forEach(([k,v])=>{const e=document.getElementById(k);if(e&&e.value!==v){e.value=v;e.dispatchEvent(new Event("input",{bubbles:true}))}});
+const cp=s=>navigator.clipboard?navigator.clipboard.writeText(s).then(()=>toast("کپی شد."),()=>toast("کپی ممکن نشد.")):toast("کپی ممکن نشد.");
+const om=window.openModule;window.openModule=function(li,mi,pre){om(li,mi);TIA.pause=false;cur=[li,mi];const t=Q(".tool"),k="tia_in_"+li+"-"+mi,l=labs[li],p=t.querySelector(":scope>p");
+if(p)p.textContent=`${l.name} · بخش ${digits(mi+1)} از ۱۰ — ${l.desc}. ورودی‌ها را تغییر بده؛ نتیجه و نمودار هم‌زمان به‌روز می‌شوند و ورودی‌هایت در همین مرورگر ذخیره می‌ماند.`;
+try{app(pre||JSON.parse(localStorage.getItem(k)||"{}"))}catch{}
+t.addEventListener("input",()=>{try{localStorage.setItem(k,JSON.stringify(cap()))}catch{}});
+const tb=document.createElement("div");tb.className="tbar";tb.innerHTML='<button data-a="png">⬇ ذخیره تصویر</button><button data-a="cp">⎘ کپی نتیجه</button><button data-a="sh">🔗 لینک اشتراک</button><button data-a="fs">⛶ تمام‌صفحه</button><button data-a="ps">⏸ توقف انیمیشن</button><button data-a="rs">↺ مقادیر اولیه</button>';(p||t.firstChild).after(tb);
+tb.onclick=e=>{const a=e.target.dataset.a,c=t.querySelector("canvas");if(!a)return;
+if(a==="png"){if(!c)return toast("این بخش نمودار ندارد.");const z=document.createElement("a");z.href=c.toDataURL("image/png");z.download=`tia-${li}-${mi}.png`;z.click()}
+else if(a==="cp")cp(QA(".tool .result").map(x=>x.innerText).join("\n"));
+else if(a==="sh")cp(location.href.split("#")[0]+`#/${li}/${mi}~`+btoa(unescape(encodeURIComponent(JSON.stringify(cap())))));
+else if(a==="fs"){c?c.requestFullscreen&&c.requestFullscreen():toast("این بخش نمودار ندارد.")}
+else if(a==="ps"){TIA.pause=!TIA.pause;e.target.textContent=TIA.pause?"▶ ادامه انیمیشن":"⏸ توقف انیمیشن"}
+else if(a==="rs"){localStorage.removeItem(k);openModule(li,mi,{})}};
+const pn=document.createElement("div");pn.className="pn";pn.innerHTML=(mi>0?`<button class="btn ghost" data-n="-1">→ ${l.mods[mi-1]}</button>`:"<span></span>")+(mi<9?`<button class="btn ghost" data-n="1">${l.mods[mi+1]} ←</button>`:"<span></span>");t.appendChild(pn);
+pn.onclick=e=>{const n=e.target.dataset.n;if(n)openModule(li,mi+ +n)}};
+// جست‌وجوی سریع
+const pal=document.createElement("div");pal.id="pal";pal.innerHTML='<div><input placeholder="جست‌وجوی هر بخش یا آزمایشگاه…"><ul></ul></div>';document.body.appendChild(pal);const pi=pal.querySelector("input"),pu=pal.querySelector("ul"),all=[];let items=[],sel=0;
+labs.forEach((l,i)=>l.mods.forEach((m,j)=>all.push([i,j,m,l.name])));
+const rp=()=>{const q=pi.value.trim();items=all.filter(a=>(a[2]+a[3]).includes(q)).slice(0,40);sel=Math.min(sel,Math.max(0,items.length-1));pu.innerHTML=items.map((a,n)=>`<li class="${n===sel?"s":""}" data-n="${n}">${a[2]}<small>${a[3]}${E[a[0]+"-"+a[1]]?" · موتور زنده":""}</small></li>`).join("")||"<li>موردی پیدا نشد.</li>"};
+const op=()=>{pal.classList.add("on");pi.value="";sel=0;rp();pi.focus()},cl=()=>pal.classList.remove("on"),pick=n=>{const a=items[n];if(a){cl();openModule(a[0],a[1])}};
+pi.oninput=()=>{sel=0;rp()};pu.onclick=e=>{const x=e.target.closest("li[data-n]");if(x)pick(+x.dataset.n)};pal.onclick=e=>{if(e.target===pal)cl()};document.getElementById("palb").onclick=op;
+document.addEventListener("keydown",e=>{if((e.ctrlKey||e.metaKey)&&e.key.toLowerCase()==="k"){e.preventDefault();op();return}
+if(pal.classList.contains("on")){if(e.key==="Escape")cl();else if(e.key==="ArrowDown"){sel=Math.min(items.length-1,sel+1);rp();e.preventDefault()}else if(e.key==="ArrowUp"){sel=Math.max(0,sel-1);rp();e.preventDefault()}else if(e.key==="Enter")pick(sel)}
+else if(e.altKey&&cur&&Q("#view-tool.active")){const d=e.key==="ArrowLeft"?1:e.key==="ArrowRight"?-1:0,n=cur[1]+d;if(d&&n>=0&&n<=9)openModule(cur[0],n)}});
+const m=location.hash.match(/^#\/([0-7])\/(\d)~(.+)$/);if(m){try{openModule(+m[1],+m[2],JSON.parse(decodeURIComponent(escape(atob(m[3])))))}catch{}}
+})();

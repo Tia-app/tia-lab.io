@@ -1,1 +1,1 @@
-{"name":"آزمایشگاه تیا","short_name":"تیا","lang":"fa","dir":"rtl","start_url":".","display":"standalone","background_color":"#080b14","theme_color":"#080b14"}
+{"name":"آزمایشگاه تیا","short_name":"تیا","lang":"fa","dir":"rtl","start_url":".","display":"standalone","background_color":"#05030f","theme_color":"#05030f","icons":[{"src":"assets/icon-192.png","sizes":"192x192","type":"image/png"},{"src":"assets/icon-512.png","sizes":"512x512","type":"image/png","purpose":"any maskable"}]}

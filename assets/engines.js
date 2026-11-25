@@ -6,7 +6,7 @@ const F=(id,l,v)=>`<div class="field"><label>${l}</label><input id="${id}" value
 const R=(id,l,a,b,v)=>`<div class="field"><label>${l}</label><input id="${id}" type="range" min="${a}" max="${b}" value="${v}"></div>`;
 const Bt=(id,l,c="primary")=>`<button class="btn ${c}" id="${id}">${l}</button>`;
 const cv=(h,w=1000,hh=560)=>{h.insertAdjacentHTML("beforeend",`<div class="canvaswrap"><canvas width="${w}" height="${hh}"></canvas></div>`);return h.querySelector("canvas")};
-const loop=(c,f)=>{cancelAnimationFrame(RAF);let l=0;const t=n=>{if(!c.isConnected)return;if(c.offsetParent)f(Math.min(.05,(n-l)/1e3||.016));l=n;RAF=requestAnimationFrame(t)};RAF=requestAnimationFrame(t)};
+const loop=(c,f)=>{cancelAnimationFrame(RAF);let l=0;const t=n=>{if(!c.isConnected)return;if(c.offsetParent&&!TIA.pause)f(Math.min(.05,(n-l)/1e3||.016));l=n;RAF=requestAnimationFrame(t)};RAF=requestAnimationFrame(t)};
 const pt=(c,e)=>{const r=c.getBoundingClientRect();return[(e.clientX-r.left)*c.width/r.width,(e.clientY-r.top)*c.height/r.height]};
 const L=n=>n.toLocaleString("en-US");
 
