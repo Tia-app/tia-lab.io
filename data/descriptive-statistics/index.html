@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<base href="../../">
+<script>window.TIA_START=[5,1]</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#080b14">
+<title>آمار توصیفی | علم داده | آزمایشگاه تیا</title>
+<meta name="description" content="میانگین، میانه، انحراف معیار و چارک‌ها داده‌ها را در چند عدد خلاصه می‌کنند.">
+<meta name="keywords" content="آزمایشگاه تیا, شبیه‌ساز فیزیک, مارپیچ اولام, غربال اراتستن, اعداد اول, مسئله سه جسم, آونگ دوگانه, منظومه شمسی, آزمایشگاه مجازی, علم داده, هوش مصنوعی">
+<meta name="author" content="آزمایشگاه تیا"><meta name="robots" content="index,follow,max-image-preview:large">
+<meta property="og:type" content="website"><meta property="og:locale" content="fa_IR"><meta property="og:site_name" content="آزمایشگاه تیا"><meta property="og:title" content="آمار توصیفی | علم داده | آزمایشگاه تیا"><meta property="og:description" content="میانگین، میانه، انحراف معیار و چارک‌ها داده‌ها را در چند عدد خلاصه می‌کنند.">
+<meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="آمار توصیفی | علم داده | آزمایشگاه تیا"><meta name="twitter:description" content="میانگین، میانه، انحراف معیار و چارک‌ها داده‌ها را در چند عدد خلاصه می‌کنند.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300..900&display=swap">
+<link rel="canonical" href="https://tia-app.github.io/tia-lab.io/data/descriptive-statistics/"><meta property="og:url" content="https://tia-app.github.io/tia-lab.io/data/descriptive-statistics/"><meta property="og:image" content="https://tia-app.github.io/tia-lab.io/assets/og.png">
+<link rel="manifest" href="manifest.webmanifest"><link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png"><link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+<link rel="stylesheet" href="assets/fx.css">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"آزمایشگاه تیا","inLanguage":"fa","description":"آزمایشگاه تیا؛ مجموعه آزمایشگاه‌های آنلاین فارسی برای ریاضیات، فیزیک، فضا، هوش مصنوعی و علم داده: مارپیچ اولام تا یک میلیارد، غربال اراتستن، مسئله n‌جسمی، آونگ آشوبناک و منظومه شمسی زنده.","about":["ریاضیات","فیزیک","نجوم","هوش مصنوعی","علم داده"]}</script>
+<style>
+:root{--bg:#080b14;--bg2:#0d1220;--panel:#111827;--panel2:#151e30;--line:#263249;--text:#edf2ff;--muted:#9aa8c0;--soft:#6d7c98;--accent:#9c8cff;--cyan:#51d5e8;--green:#59d6a3;--amber:#f0bc72;--red:#f27d8d;--shadow:0 22px 65px #0007;font-family:"Vazirmatn",Tahoma,sans-serif}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:radial-gradient(ellipse at 75% -15%,#28204d 0,transparent 34%),radial-gradient(ellipse at 0 70%,#102b39 0,transparent 30%),var(--bg);color:var(--text);min-height:100vh}button,input,select,textarea{font:inherit}button{cursor:pointer;color:inherit}button:focus-visible,input:focus-visible,select:focus-visible{outline:2px solid var(--cyan);outline-offset:2px}
+.shell{display:grid;grid-template-columns:260px minmax(0,1fr);min-height:100vh}.side{position:sticky;top:0;height:100vh;padding:24px 16px;background:#0a0f1cdb;backdrop-filter:blur(22px);border-left:1px solid var(--line);display:flex;flex-direction:column;z-index:10}.brand{display:flex;align-items:center;gap:12px;padding:3px 8px 28px}.mark{width:44px;height:44px;border-radius:14px;background:linear-gradient(145deg,#b0a1ff,#5369d8);display:grid;place-items:center;font-weight:900;font-size:24px;color:white;box-shadow:0 8px 28px #7567ff55}.brand strong{font-size:18px;letter-spacing:2px}.brand small{display:block;color:#7887a4;font:8px Arial;letter-spacing:2px;margin-top:4px}.side-label{font-size:10px;color:#71809d;padding:13px 12px 8px}.nav{display:flex;align-items:center;gap:11px;width:100%;padding:11px 12px;border:0;border-radius:10px;background:none;color:#a5b1c8;text-align:right;font-size:12px;margin:2px 0;transition:.2s}.nav:hover,.nav.active{background:linear-gradient(90deg,#8d7cff26,#3d85a51a);color:white}.nav.active{box-shadow:inset -2px 0 var(--accent)}.nav i{font-style:normal;width:20px;text-align:center;font-size:17px;color:#a99cff}.nav .count{margin-right:auto;color:#c2baff;background:#2a2850;border-radius:6px;padding:2px 7px;font-size:9px}.side-foot{margin-top:auto}.local{padding:12px;border:1px solid var(--line);border-radius:11px;background:#101a29;margin:12px 0;font-size:10px;color:#b9c6d9}.local b{color:var(--green);font-size:10px}.local span{display:block;color:var(--soft);margin-top:4px}.version{display:flex;justify-content:space-between;padding:12px 7px 0;border-top:1px solid var(--line);font-size:9px;color:#65738e}
+main{min-width:0;padding:0 34px 30px;max-width:1700px;width:100%;margin:auto}.top{height:74px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;gap:15px}.crumb{font-size:11px;color:var(--muted)}.crumb b{color:var(--text);font-weight:500}.topright{display:flex;gap:10px;align-items:center}.search{display:flex;align-items:center;gap:9px;width:min(300px,34vw);height:39px;border:1px solid var(--line);border-radius:10px;padding:0 12px;background:#111a2a;color:var(--muted)}.search input{background:none;border:0;outline:0;color:var(--text);width:100%;font-size:10px}.square{width:38px;height:38px;border:1px solid var(--line);border-radius:10px;background:#111a2a;color:#bdc8dc}.hamb{display:none}
+.view{display:none;padding:28px 0 40px;animation:appear .3s ease}.view.active{display:block}@keyframes appear{from{opacity:0;transform:translateY(7px)}to{opacity:1;transform:none}}@keyframes float{50%{transform:translateY(-10px)}}@keyframes rotate{to{transform:rotate(360deg)}}
+.hero{position:relative;overflow:hidden;min-height:340px;border:1px solid #7568bc55;border-radius:22px;background:linear-gradient(115deg,#151b32 0,#15182d 50%,#102b39 100%);padding:42px;display:flex;align-items:center;box-shadow:var(--shadow)}.hero:before{content:"";position:absolute;inset:0;background-image:linear-gradient(#aab6df0a 1px,transparent 1px),linear-gradient(90deg,#aab6df0a 1px,transparent 1px);background-size:34px 34px;mask-image:linear-gradient(90deg,transparent,#000)}.hero-copy{position:relative;z-index:2;max-width:540px}.kicker{font-size:10px;color:#b2a5ff;letter-spacing:.6px}.hero h1{font-size:40px;line-height:1.5;margin:14px 0 8px;letter-spacing:-1px}.hero h1 span{color:#a99aff}.hero p{font-size:11px;color:#aab6cc;line-height:2.2;max-width:440px}.actions{display:flex;gap:9px;margin-top:20px;flex-wrap:wrap}.btn{border:1px solid transparent;border-radius:10px;padding:10px 16px;font-size:10px}.primary{background:linear-gradient(110deg,#8b78ff,#547fdb);box-shadow:0 8px 24px #6c61df44;color:white}.ghost{border-color:#ffffff24;background:#ffffff09;color:#d8e0f0}.orbital{position:absolute;left:8%;top:50%;width:280px;height:280px;transform:translateY(-50%);display:grid;place-items:center}.orbital .ring{position:absolute;width:100%;height:100%;border:1px solid #aaa1ff44;border-radius:50%;transform:rotate(-25deg) scaleY(.45)}.orbital .ring:nth-child(2){width:78%;height:78%;border-style:dashed;animation:rotate 36s linear infinite}.orbital .core{width:110px;height:110px;border-radius:50%;background:radial-gradient(circle at 30% 25%,#d4d0ff,#7c70d8 28%,#29396b 72%,#10192e);box-shadow:inset -18px -14px 28px #080c1d,0 0 60px #8e80ff70;animation:float 6s ease-in-out infinite}.orbital .core:after{content:"";display:block;width:175px;height:44px;border:1px solid #8b9efb99;border-radius:50%;transform:translate(-32px,35px) rotate(-25deg)}
+.metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:16px 0 34px}.metric{display:flex;gap:12px;align-items:center;padding:14px;background:#111a2a;border:1px solid var(--line);border-radius:13px}.metric .ico{width:36px;height:36px;border-radius:10px;background:#9382ff1b;color:#b4a8ff;display:grid;place-items:center;font-size:18px}.metric strong{display:block;font-size:20px}.metric small{font-size:9px;color:var(--muted)}
+.heading{display:flex;align-items:end;justify-content:space-between;margin:28px 0 15px}.heading h2,.page-title h1{font-size:22px;margin:3px 0}.heading p,.page-title p{font-size:10px;color:var(--muted);margin:0}.link{border:0;background:none;color:#b1a4ff;font-size:10px}
+.cards{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}.lab{--tone:#a18aff;position:relative;overflow:hidden;text-align:right;min-height:150px;padding:16px;border:1px solid var(--line);border-radius:14px;background:linear-gradient(145deg,#162238,#101827);transition:.22s;cursor:pointer}.lab:hover{transform:translateY(-4px);border-color:color-mix(in srgb,var(--tone),transparent 40%);box-shadow:0 14px 36px #0005}.lab:after{content:"";position:absolute;left:-35px;bottom:-65px;width:140px;height:140px;border-radius:50%;background:var(--tone);filter:blur(55px);opacity:.14}.labtop{display:flex;justify-content:space-between;align-items:center}.labicon{width:38px;height:38px;border-radius:11px;background:color-mix(in srgb,var(--tone),transparent 85%);color:var(--tone);display:grid;place-items:center;font-size:20px}.labnum{font:9px Arial;color:#71809b}.lab h3{font-size:13px;margin:13px 0 4px}.lab p{font-size:9px;color:#91a0ba;margin:0}.labfoot{display:flex;justify-content:space-between;margin-top:13px;color:#8492aa;font-size:9px}.labfoot b{color:var(--tone);font-size:15px}
+.lower{display:grid;grid-template-columns:1.05fr .95fr;gap:13px;margin-top:20px}.panel{border:1px solid var(--line);border-radius:14px;background:#111a2a;padding:17px}.panel h3{font-size:13px;margin:3px 0 13px}.shortcuts{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}.shortcut{border:1px solid var(--line);border-radius:10px;background:#ffffff06;padding:11px;text-align:right}.shortcut b{display:block;font-size:10px}.shortcut small{font-size:8px;color:var(--muted)}.activity{font-size:10px;color:var(--muted);line-height:2.3}
+.page-title{margin:10px 0 22px}.page-title h1{font-size:26px}.filter{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:16px;color:var(--muted);font-size:9px}.filter input{width:min(470px,70%);background:#111a2a;border:1px solid var(--line);border-radius:10px;padding:11px 13px;color:var(--text);font-size:10px;outline:0}
+.back{border:0;background:none;color:#b3a5ff;font-size:10px;margin-bottom:16px}.detailhead{padding:22px;border:1px solid var(--line);border-radius:15px;background:linear-gradient(110deg,#19243a,#111a2a);margin-bottom:17px}.detailhead h1{font-size:25px;margin:8px 0}.detailhead p{font-size:10px;color:var(--muted)}.modules{display:grid;grid-template-columns:repeat(2,1fr);gap:9px}.module{display:flex;align-items:center;gap:11px;text-align:right;padding:12px;border:1px solid var(--line);border-radius:11px;background:#111a2a;transition:.18s}.module:hover{border-color:#8f80ff77;background:#172238}.num{width:30px;height:30px;display:grid;place-items:center;background:#9787ff19;color:#b7aaff;border-radius:9px;font:10px Arial;flex:none}.module b{font-size:10px;display:block}.module small{font-size:8px;color:var(--muted)}.module em{font-style:normal;margin-right:auto;color:#8694ad}
+.tool{max-width:920px;margin:0 auto;padding:23px;border:1px solid var(--line);border-radius:16px;background:linear-gradient(145deg,#152139,#101827);box-shadow:var(--shadow)}.tool h1{font-size:22px;margin:6px 0}.tool>p{font-size:10px;color:var(--muted);line-height:2}.toolgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:11px;margin-top:18px}.field{display:flex;flex-direction:column;gap:6px}.field label{font-size:9px;color:#b6c2d7}.field input,.field select,.field textarea{width:100%;border:1px solid #30405d;background:#0b1321;color:var(--text);border-radius:9px;padding:10px 11px;outline:0;font-size:11px;min-width:0}.field input:focus,.field select:focus{border-color:#9b8cff}.result{margin-top:14px;border:1px solid #877aff42;background:#887aff0d;border-radius:10px;padding:14px;min-height:52px;color:#d3ceff;font-size:11px;line-height:2;overflow-wrap:anywhere}.toolbuttons{display:flex;gap:8px;margin-top:12px;flex-wrap:wrap}.subtle{font-size:9px;color:#7e8da7;line-height:2;margin-top:12px}.canvaswrap{margin-top:14px;background:#091321;border:1px solid var(--line);border-radius:10px;overflow:hidden}.canvaswrap canvas{display:block;width:100%;height:auto}.historyrow{display:flex;justify-content:space-between;gap:10px;padding:10px 0;border-bottom:1px solid var(--line);font-size:10px}.historyrow small{color:var(--muted);font-size:9px}.empty{text-align:center;padding:28px;color:var(--muted);font-size:10px;line-height:2}
+footer{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;border-top:1px solid var(--line);padding:16px 0;margin-top:28px;color:#71809a;font-size:8px}.toast{position:fixed;bottom:22px;left:22px;padding:11px 15px;background:#1c2940;border:1px solid #766bcb;border-radius:10px;font-size:10px;opacity:0;transform:translateY(10px);transition:.2s;z-index:30;pointer-events:none}.toast.show{opacity:1;transform:none}
+body.light{--bg:#eef2fa;--text:#18233b;--muted:#63718b;--line:#d7deeb;background:#eef2fa;color:var(--text)}body.light .side{background:#f7f9fd}body.light .nav{color:#53617a}body.light .metric,body.light .panel,body.light .lab,body.light .module,body.light .tool,body.light .detailhead{background:#fff;color:#18233b}body.light .search,body.light .filter input{background:white;color:#18233b}body.light .field input,body.light .field select{background:#f7f9fd;color:#18233b}
+@media(max-width:1120px){.cards{grid-template-columns:repeat(3,1fr)}main{padding:0 23px}.orbital{left:0;opacity:.7}}
+@media(max-width:800px){.shell{display:block}.side{position:fixed;right:0;top:0;bottom:0;width:260px;transform:translateX(105%);transition:.25s;box-shadow:var(--shadow)}.side.open{transform:none}main{padding:0 16px}.hamb{display:inline-block}.cards{grid-template-columns:repeat(2,minmax(0,1fr))}.metrics{grid-template-columns:repeat(2,1fr)}.hero{padding:30px 23px}.orbital{left:-80px;opacity:.35}.hero-copy{max-width:100%}.lower{grid-template-columns:1fr}.top{height:65px}.modules{grid-template-columns:1fr}}
+@media(max-width:500px){.cards{grid-template-columns:1fr}.hero{min-height:360px}.hero h1{font-size:31px}.orbital{left:-130px}.search{width:48vw}.square{display:none}.metric{padding:10px}.metric strong{font-size:17px}.toolgrid{grid-template-columns:1fr}.filter{align-items:stretch;flex-direction:column}.filter input{width:100%}footer{line-height:2}}
+</style>
+<script>(function(){var l=document.querySelector("link[rel=canonical]");if(l&&/USERNAME/.test(l.href))l.href=location.origin+location.pathname.replace(/index\.html$/,"");var o=document.querySelector("meta[property='og:url']");if(o&&/USERNAME/.test(o.content))o.content=l.href})()</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebApplication", "name": "آمار توصیفی | علم داده | آزمایشگاه تیا", "description": "میانگین، میانه، انحراف معیار و چارک‌ها داده‌ها را در چند عدد خلاصه می‌کنند.", "url": "https://tia-app.github.io/tia-lab.io/data/descriptive-statistics/", "inLanguage": "fa", "applicationCategory": "EducationalApplication", "operatingSystem": "Web"}</script>
+</head>
+<body><noscript><h1>آمار توصیفی چیست؟</h1><p>میانگین، میانه، انحراف معیار و چارک‌ها داده‌ها را در چند عدد خلاصه می‌کنند.</p></noscript>
+<div class="shell">
+<aside class="side" id="side">
+ <div class="brand"><div class="mark"><img src="assets/icon-192.png" alt="آزمایشگاه تیا" width="42" height="42"></div><div><strong>آزمایشگاه تیا</strong><small>آزمایشگاه تیاORATORY</small></div></div>
+ <div class="side-label">فضای کاری</div>
+ <button class="nav active" data-view="home"><i>⌂</i> نمای کلی</button>
+ <button class="nav" data-view="labs"><i>◈</i> آزمایشگاه‌ها <span class="count">۸</span></button>
+ <button class="nav" data-view="favorites"><i>☆</i> نشان‌شده‌ها</button>
+ <button class="nav" data-view="history"><i>◷</i> سابقه فعالیت</button>
+ <div class="side-label">میان‌برها</div>
+ <button class="nav" data-quick="calculator"><i>＋</i> ماشین‌حساب</button>
+ <button class="nav" data-quick="prime"><i>∑</i> بررسی عدد اول</button>
+ <button class="nav" data-quick="converter"><i>⇄</i> مبدل مبنا</button>
+ <div class="side-foot"><div class="local"><b>● محیط محلی آماده است</b><span>اطلاعات روی همین دستگاه نگهداری می‌شود.</span></div><button class="nav" id="theme"><i>◐</i> تغییر پوسته</button><div class="version"><b>آزمایشگاه تیا</b><span>نسخه ۳.۰</span></div></div>
+</aside>
+<main>
+ <header class="top"><div style="display:flex;align-items:center;gap:12px"><button class="square hamb" id="hamb">☰</button><div class="crumb">آزمایشگاه تیا <span style="color:#56647d"> / </span> <b id="crumb">نمای کلی</b></div></div><div class="topright"><label class="search">⌕ <input id="globalSearch" placeholder="جست‌وجو در ابزارها و بخش‌ها..."></label><button class="square" id="palb" title="جست‌وجوی سریع (Ctrl+K)">⌘</button><button class="square" id="full" title="تمام‌صفحه">⛶</button></div></header>
+
+ <section class="view active" id="view-home">
+  <div class="hero"><div class="hero-copy"><div class="kicker">مجموعه ابزارهای علمی و مهندسی</div><h1>کنجکاوی را<br><span>به تجربه تبدیل کن.</span></h1><p>آزمایشگاه تیا مجموعه‌ای از ابزارهای محاسباتی، شبیه‌سازها و مرجع‌های علمی است. یک موضوع را انتخاب کن، پارامترها را تغییر بده و نتیجه را همان‌جا ببین.</p><div class="actions"><button class="btn primary" data-view="labs">دیدن آزمایشگاه‌ها ←</button><button class="btn ghost" data-quick="calculator">باز کردن ماشین‌حساب</button></div></div><div class="orbital"><div class="ring"></div><div class="ring"></div><div class="core"></div></div></div>
+  <div class="metrics"><div class="metric"><span class="ico">◈</span><div><strong>۰۸</strong><small>آزمایشگاه</small></div></div><div class="metric"><span class="ico">▦</span><div><strong>۸۰</strong><small>بخش موضوعی</small></div></div><div class="metric"><span class="ico">⌁</span><div><strong id="activityN">۰۰</strong><small>فعالیت ثبت‌شده</small></div></div><div class="metric"><span class="ico">☆</span><div><strong id="favN">۰۰</strong><small>بخش نشان‌شده</small></div></div></div>
+  <div class="heading"><div><div class="kicker">انتخاب یک مسیر</div><h2>آزمایشگاه‌ها</h2><p>هر آزمایشگاه ده بخش دارد.</p></div><button class="link" data-view="labs">همه آزمایشگاه‌ها ←</button></div>
+  <div class="cards" id="homeCards"></div>
+  <div class="lower"><div class="panel"><h3>ابزارهای سریع</h3><div class="shortcuts"><button class="shortcut" data-quick="calculator"><b>ماشین‌حساب علمی</b><small>محاسبه عبارت‌های عددی</small></button><button class="shortcut" data-quick="prime"><b>بررسی عدد اول</b><small>تحلیل و تجزیه عدد</small></button><button class="shortcut" data-quick="converter"><b>مبدل مبنا</b><small>مبنای ۲ تا ۳۶</small></button><button class="shortcut" data-quick="graph"><b>رسم تابع</b><small>نمایش نمودار تابع</small></button></div></div><div class="panel"><h3>آخرین فعالیت‌ها</h3><div class="activity" id="recent">هنوز فعالیتی ثبت نشده است.</div></div></div>
+ </section>
+ <section class="view" id="view-labs"><div class="page-title"><div class="kicker">CATALOGUE</div><h1>آزمایشگاه‌ها</h1><p>موضوع مورد نظرت را پیدا کن و ابزار مربوط به آن را باز کن.</p></div><div class="filter"><input id="labFilter" placeholder="جست‌وجو میان آزمایشگاه‌ها و ۸۰ بخش..."><span id="labCount">۸ آزمایشگاه · ۸۰ بخش</span></div><div class="cards" id="allCards"></div></section>
+ <section class="view" id="view-detail"><button class="back" data-view="labs">← بازگشت به آزمایشگاه‌ها</button><div id="detail"></div></section>
+ <section class="view" id="view-tool"><button class="back" id="toolBack">← بازگشت</button><div id="toolContent"></div></section>
+ <section class="view" id="view-favorites"><div class="page-title"><div class="kicker">SAVED ITEMS</div><h1>نشان‌شده‌ها</h1><p>بخش‌هایی که برای مراجعه دوباره نگه داشته‌ای.</p></div><div id="favorites" class="modules"></div></section>
+ <section class="view" id="view-history"><div class="page-title"><div class="kicker">ACTIVITY LOG</div><h1>سابقه فعالیت</h1><p>فهرست محاسبات و ابزارهایی که در این مرورگر باز کرده‌ای.</p></div><div class="panel" id="history"></div></section>
+ <nav class="seo-nav" aria-label="فهرست آزمایشگاه‌ها و بخش‌ها"><div><a href="math/"><b>ریاضیات</b></a>: <a href="math/sieve/">غربال اراتستن</a> · <a href="math/ulam-spiral/">مارپیچ اعداد اول</a> · <a href="math/prime-test/">تحلیل اعداد اول</a> · <a href="math/twin-primes/">اعداد اول دوقلو</a> · <a href="math/prime-gaps/">فاصله اعداد اول</a> · <a href="math/factorization/">تجزیه به عوامل اول</a> · <a href="math/big-numbers/">محاسبات اعداد بزرگ</a> · <a href="math/sequences/">دنباله‌های عددی</a> · <a href="math/function-plotter/">رسم تابع</a> · <a href="math/geometry/">هندسه و مساحت</a></div><div><a href="ai/"><b>هوش مصنوعی</b></a>: <a href="ai/perceptron/">پرسپترون ساده</a> · <a href="ai/function-learning/">یادگیری یک تابع</a> · <a href="ai/genetic-algorithm/">الگوریتم ژنتیک</a> · <a href="ai/pathfinding-agent/">عامل مسیر‌یاب</a> · <a href="ai/q-learning/">نمایش Q-Learning</a> · <a href="ai/path-search/">جست‌وجوی مسیر</a> · <a href="ai/data-cleaning/">آماده‌سازی داده</a> · <a href="ai/decision-stump/">درخت تصمیم ساده</a> · <a href="ai/kmeans/">خوشه‌بندی نقاط</a> · <a href="ai/classification-metrics/">ارزیابی دسته‌بندی</a></div><div><a href="physics/"><b>فیزیک</b></a>: <a href="physics/projectile/">پرتابه</a> · <a href="physics/gravity/">گرانش دو جرم</a> · <a href="physics/mirrors/">آینه‌ها و بازتاب نور</a> · <a href="physics/circuit-builder/">ساخت مدار الکتریکی</a> · <a href="physics/rc-rl-circuits/">مدار RC و RL گذرا</a> · <a href="physics/wave-interference/">موج سینوسی</a> · <a href="physics/magnetism/">مغناطیس و آهنربای الکتریکی</a> · <a href="physics/static-electricity/">الکتریسیته ساکن و میدان الکتریکی</a> · <a href="physics/lorentz-force/">مغناطیس و نیروی لورنتس</a> · <a href="physics/lenses-refraction/">شکست نور و عدسی‌ها</a></div><div><a href="tech/"><b>فناوری</b></a>: <a href="tech/code-stats/">ویرایشگر متن کد</a> · <a href="tech/sorting/">مرتب‌سازی الگوریتمی</a> · <a href="tech/base-converter/">مبدل مبناهای عددی</a> · <a href="tech/json-validator/">خوانش و قالب‌بندی JSON</a> · <a href="tech/caesar-cipher/">رمزگذاری آموزشی سزار</a> · <a href="tech/engineering-calculator/">محاسبه‌گر مهندسی</a> · <a href="tech/regex-lab/">آزمایشگر عبارت منظم</a> · <a href="tech/text-counter/">ابزار شمارش متن</a> · <a href="tech/javascript-lab/">آزمایشگاه JavaScript</a> · <a href="tech/html-builder/">ساختار صفحه وب</a></div><div><a href="space/"><b>فضا</b></a>: <a href="space/solar-system/">مدل منظومه شمسی</a> · <a href="space/orbit-ellipse/">مدار بیضوی آموزشی</a> · <a href="space/planet-sizes/">مقایسه سیارات</a> · <a href="space/weight-on-planets/">وزن در سیارات</a> · <a href="space/distance-scale/">مقیاس فاصله فضایی</a> · <a href="space/light-time/">محاسبه زمان نور</a> · <a href="space/schwarzschild-radius/">سیاه‌چاله؛ مفهوم و شعاع</a> · <a href="space/moons/">مقایسه قمرها</a> · <a href="space/travel-time/">مأموریت فضایی؛ محاسبه زمان</a> · <a href="space/astronomical-units/">مبدل واحدهای نجومی</a></div><div><a href="data/"><b>علم داده</b></a>: <a href="data/z-scores/">تحلیلگر داده</a> · <a href="data/descriptive-statistics/">آمار توصیفی</a> · <a href="data/bar-chart/">نمودار میله‌ای</a> · <a href="data/correlation/">همبستگی پیرسون</a> · <a href="data/frequency-table/">توزیع فراوانی</a> · <a href="data/regression/">رگرسیون خطی</a> · <a href="data/data-generator/">تولید داده آزمایشی</a> · <a href="data/scatter-plot/">نمودار پراکندگی</a> · <a href="data/compare-datasets/">مقایسه دو مجموعه</a> · <a href="data/moving-average/">میانگین متحرک</a></div><div><a href="earth/"><b>زمین</b></a>: <a href="earth/earth-basics/">کره زمین؛ داده‌های پایه</a> · <a href="earth/distance-bearing/">فاصله دو نقطه روی زمین</a> · <a href="earth/coordinates/">مختصات جغرافیایی</a> · <a href="earth/map-scale/">مقیاس نقشه</a> · <a href="earth/earthquake-energy/">محاسبه بزرگی زلزله</a> · <a href="earth/water-cycle/">چرخه آب؛ مدل ساده</a> · <a href="earth/heat-index/">شاخص دمایی</a> · <a href="earth/water-pressure/">عمق و فشار آب</a> · <a href="earth/unit-converter/">تبدیل ارتفاع و واحد</a> · <a href="earth/earth-atlas/">اطلس مفاهیم زمین</a></div><div><a href="library/"><b>دانشنامه</b></a>: <a href="library/scientists/">دانشمندان و دستاوردها</a> · <a href="library/timeline/">گاه‌شمار علم</a> · <a href="library/formulas/">فرمول‌های ریاضی</a> · <a href="library/math-concepts/">مفاهیم ریاضی</a> · <a href="library/physics-concepts/">مفاهیم فیزیک</a> · <a href="library/ai-concepts/">مبانی هوش مصنوعی</a> · <a href="library/astronomy-terms/">واژه‌های اخترشناسی</a> · <a href="library/technologies/">فناوری‌های نو</a> · <a href="library/discoveries/">کشفیات مهم</a> · <a href="library/glossary/">واژه‌نامه علمی</a></div></nav>
+<footer><span>© آزمایشگاه تیا</span><span>یک مجموعه مستقل برای یادگیری و آزمایش</span><span>پژوهش · شبیه‌سازی · محاسبه</span></footer>
+</main>
+</div><div class="toast" id="toast"></div>
+<script>
+const labs=[
+{name:"ریاضیات",en:"Mathematics",icon:"∑",tone:"#a58cff",desc:"اعداد، الگوها، توابع و ساختارهای ریاضی",mods:["غربال اراتستن","مارپیچ اعداد اول","تحلیل اعداد اول","اعداد اول دوقلو","فاصله اعداد اول","تجزیه به عوامل اول","محاسبات اعداد بزرگ","دنباله‌های عددی","رسم تابع","هندسه و مساحت"]},
+{name:"هوش مصنوعی",en:"Computing Models",icon:"⌘",tone:"#58d5e8",desc:"الگوریتم‌ها و مدل‌های محاسباتی قابل آزمایش",mods:["پرسپترون ساده","یادگیری یک تابع","الگوریتم ژنتیک","عامل مسیر‌یاب","نمایش Q-Learning","جست‌وجوی مسیر","آماده‌سازی داده","درخت تصمیم ساده","خوشه‌بندی نقاط","ارزیابی دسته‌بندی"]},
+{name:"فیزیک",en:"Physics",icon:"ϟ",tone:"#f0bb72",desc:"مدل‌های پایه برای بررسی پدیده‌های فیزیکی",mods:["پرتابه","گرانش دو جرم","آینه‌ها و بازتاب نور","ساخت مدار الکتریکی","مدار RC و RL گذرا","موج سینوسی","مغناطیس و آهنربای الکتریکی","الکتریسیته ساکن و میدان الکتریکی","مغناطیس و نیروی لورنتس","شکست نور و عدسی‌ها"]},
+{name:"فناوری",en:"Technology",icon:"⌘",tone:"#5bd5a3",desc:"ابزارهای برنامه‌نویسی، تبدیل و پردازش متن",mods:["ویرایشگر متن کد","مرتب‌سازی الگوریتمی","مبدل مبناهای عددی","خوانش و قالب‌بندی JSON","رمزگذاری آموزشی سزار","محاسبه‌گر مهندسی","آزمایشگر عبارت منظم","ابزار شمارش متن","آزمایشگاه JavaScript","ساختار صفحه وب"]},
+{name:"فضا",en:"Space",icon:"✦",tone:"#69b8ff",desc:"سیارات، مدارها و مقیاس‌های کیهانی",mods:["مدل منظومه شمسی","مدار بیضوی آموزشی","مقایسه سیارات","وزن در سیارات","مقیاس فاصله فضایی","محاسبه زمان نور","سیاه‌چاله؛ مفهوم و شعاع","مقایسه قمرها","مأموریت فضایی؛ محاسبه زمان","مبدل واحدهای نجومی"]},
+{name:"علم داده",en:"Data Science",icon:"▥",tone:"#f28fae",desc:"آمار توصیفی، تحلیل داده و نمودار",mods:["تحلیلگر داده","آمار توصیفی","نمودار میله‌ای","همبستگی پیرسون","توزیع فراوانی","رگرسیون خطی","تولید داده آزمایشی","نمودار پراکندگی","مقایسه دو مجموعه","میانگین متحرک"]},
+{name:"زمین",en:"Earth Science",icon:"◉",tone:"#62c99e",desc:"ویژگی‌های زمین، محیط و محاسبات جغرافیایی",mods:["کره زمین؛ داده‌های پایه","فاصله دو نقطه روی زمین","مختصات جغرافیایی","مقیاس نقشه","محاسبه بزرگی زلزله","چرخه آب؛ مدل ساده","شاخص دمایی","عمق و فشار آب","تبدیل ارتفاع و واحد","اطلس مفاهیم زمین"]},
+{name:"دانشنامه",en:"Encyclopedia",icon:"⌑",tone:"#c49aff",desc:"یادداشت‌های کوتاه و مرجع‌های علمی",mods:["دانشمندان و دستاوردها","گاه‌شمار علم","فرمول‌های ریاضی","مفاهیم ریاضی","مفاهیم فیزیک","مبانی هوش مصنوعی","واژه‌های اخترشناسی","فناوری‌های نو","کشفیات مهم","واژه‌نامه علمی"]}
+];
+const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
+const state={view:"home",lab:null,back:"home",history:JSON.parse(localStorage.getItem("tia_hist")||"[]"),favs:JSON.parse(localStorage.getItem("tia_favs")||"[]")};
+const digits=n=>String(n).replace(/\d/g,d=>"۰۱۲۳۴۵۶۷۸۹"[+d]);
+function save(){localStorage.setItem("tia_hist",JSON.stringify(state.history));localStorage.setItem("tia_favs",JSON.stringify(state.favs));}
+function toast(s){let t=$("#toast");t.textContent=s;t.classList.add("show");setTimeout(()=>t.classList.remove("show"),2200)}
+function log(s){state.history.unshift({s,t:new Date().toLocaleString("fa-IR")});state.history=state.history.slice(0,80);save();stats();recent()}
+function stats(){$("#activityN").textContent=digits(state.history.length);$("#favN").textContent=digits(state.favs.length)}
+function card(l,i){return `<article class="lab" style="--tone:${l.tone}" data-lab="${i}"><div class="labtop"><span class="labicon">${l.icon}</span><span class="labnum">LAB / ${String(i+1).padStart(2,"0")}</span></div><h3>${l.name}</h3><p>${l.desc}</p><div class="labfoot"><span>۱۰ بخش</span><b>←</b></div></article>`}
+function drawCards(){let c=labs.map(card).join("");$("#homeCards").innerHTML=c;$("#allCards").innerHTML=c;bindCards()}
+function bindCards(){$$("[data-lab]").forEach(e=>e.onclick=()=>openLab(+e.dataset.lab))}
+function show(v,title){$$(".view").forEach(x=>x.classList.remove("active"));$("#view-"+v).classList.add("active");state.view=v;$("#crumb").textContent=title||({home:"نمای کلی",labs:"آزمایشگاه‌ها",favorites:"نشان‌شده‌ها",history:"سابقه فعالیت"}[v]||"ابزار");$$(".nav[data-view]").forEach(b=>b.classList.toggle("active",b.dataset.view===v));$("#side").classList.remove("open");scrollTo({top:0,behavior:"smooth"})}
+function openLab(i){state.lab=i;let l=labs[i];$("#detail").innerHTML=`<div class="detailhead" style="border-color:${l.tone}55"><div class="kicker">${l.en.toUpperCase()} / LAB ${String(i+1).padStart(2,"0")}</div><h1>${l.icon} ${l.name}</h1><p>${l.desc}</p></div><div class="modules">${l.mods.map((m,j)=>`<button class="module" data-module="${j}"><span class="num">${digits(j+1)}</span><span><b>${m}</b><small>ابزار و محاسبه تعاملی</small></span><em>←</em></button>`).join("")}</div>`;$$("[data-module]").forEach(b=>b.onclick=()=>openModule(i,+b.dataset.module));show("detail",l.name)}
+function field(label,id,value,type="text",placeholder=""){return `<div class="field"><label>${label}</label><input id="${id}" type="${type}" value="${value}" placeholder="${placeholder}"></div>`}
+function result(id="result",txt="نتیجه در این قسمت نمایش داده می‌شود."){return `<div class="result" id="${id}">${txt}</div>`}
+function btn(id,label="محاسبه"){return `<div class="toolbuttons"><button class="btn primary" id="${id}">${label}</button></div>`}
+function canvas(id="plot",h=300){return `<div class="canvaswrap"><canvas id="${id}" width="900" height="${h}"></canvas></div>`}
+function toolShell(l,i,body){return `<div class="tool"><div class="kicker">${l.en.toUpperCase()} / MODULE ${String(i+1).padStart(2,"0")}</div><h1>${l.mods[i]}</h1><p>${toolDescription(l,i)}</p>${body}</div>`}
+function toolDescription(l,i){return ["پارامترها را تغییر بده و نتیجه را بررسی کن. محاسبات در مرورگر انجام می‌شود.","مقادیر ورودی را وارد کن؛ نتیجه بر اساس همان داده‌ها نمایش داده می‌شود."][i%2]}
+function openModule(li,mi){state.back="detail";$("#toolBack").onclick=()=>show("detail",labs[li].name);let body=moduleBody(li,mi);$("#toolContent").innerHTML=toolShell(labs[li],mi,body);show("tool",labs[li].mods[mi]);wireModule(li,mi);log(labs[li].name+" / "+labs[li].mods[mi])}
+function openQuick(id){state.back=state.view;$("#toolBack").onclick=()=>show(state.back);let map={calculator:[0,6],prime:[0,2],converter:[3,2],graph:[0,8]};let [li,mi]=map[id];openModule(li,mi);state.back=state.view==="tool"?"home":state.back}
+function moduleBody(li,mi){
+ let body="";
+ if(li===0){
+  if(mi===0)body=field("حد بالای غربال","n",200,"number")+btn("run","اجرای غربال")+result()+canvas();
+  if(mi===1)body=field("تعداد نقاط مارپیچ","n",400,"number")+btn("run","رسم مارپیچ")+canvas();
+  if(mi===2)body=field("عدد مورد بررسی","n",997,"number")+btn("run","بررسی عدد")+result();
+  if(mi===3)body=field("حد بالای جست‌وجو","n",1000,"number")+btn("run","یافتن جفت‌ها")+result();
+  if(mi===4)body=field("حد بالای بررسی","n",1000,"number")+btn("run","تحلیل فاصله‌ها")+result()+canvas();
+  if(mi===5)body=field("عدد صحیح","n",360,"number")+btn("run","تجزیه عدد")+result();
+  if(mi===6)body=field("عدد اول","a","12345678901234567890")+field("عملیات","op","جمع")+field("عدد دوم","b","98765432109876543210")+btn("run","محاسبه")+result();
+  if(mi===7)body=field("نوع دنباله","kind","فیبوناچی")+field("تعداد جمله‌ها","n",20,"number")+btn("run","تولید دنباله")+result();
+  if(mi===8)body=field("تابع برحسب x","fn","x*x-4*x+3")+btn("run","رسم نمودار")+canvas();
+  if(mi===9)body=field("طول","a",12,"number")+field("عرض","b",8,"number")+field("شکل","shape","مستطیل")+btn("run","محاسبه مساحت")+result();
+ }else if(li===1){
+  if(mi===0)body=field("وزن ورودی اول","w",0.7,"number")+field("وزن ورودی دوم","v",0.4,"number")+field("آستانه","t",0.5,"number")+field("ورودی اول","x",1,"number")+field("ورودی دوم","y",0,"number")+btn("run","اجرای پرسپترون")+result();
+  if(mi===1)body=field("ضریب تابع","a",3,"number")+field("تعداد گام‌ها","n",8,"number")+btn("run","آموزش نمونه")+result();
+  if(mi===2)body=field("رشته هدف","target","آزمایشگاه تیا")+field("اندازه جمعیت","pop",40,"number")+btn("run","اجرای الگوریتم ژنتیک")+result();
+  if(mi===3)body=field("طول مسیر شبکه","n",8,"number")+btn("run","پیدا کردن مسیر")+result()+canvas();
+  if(mi===4)body=field("پاداش حرکت درست","r",10,"number")+field("ضریب یادگیری","alpha",0.2,"number")+field("تعداد تکرار","n",20,"number")+btn("run","نمایش به‌روزرسانی Q")+result();
+  if(mi===5)body=field("نقطه شروع","a",0,"number")+field("نقطه مقصد","b",17,"number")+btn("run","جست‌وجوی مسیر")+result();
+  if(mi===6)body=field("داده‌ها با کاما","data","12,15,18,20,22,25")+btn("run","پاک‌سازی و خلاصه")+result();
+  if(mi===7)body=field("آستانه ویژگی","t",5,"number")+field("مقادیر نمونه","data","2,3,7,8,4,9,1")+btn("run","ساخت درخت یک‌مرحله‌ای")+result();
+  if(mi===8)body=field("نقاط x با کاما","xs","1,2,3,8,9,10")+field("نقاط y با کاما","ys","2,3,2,9,8,10")+field("تعداد خوشه","k",2,"number")+btn("run","خوشه‌بندی ساده")+result()+canvas();
+  if(mi===9)body=field("واقعی‌ها","actual","1,1,0,0,1,0")+field("پیش‌بینی‌ها","pred","1,0,0,0,1,1")+btn("run","ارزیابی مدل")+result();
+ }else if(li===2){
+  if(mi===0)body=field("سرعت اولیه (m/s)","v",20,"number")+field("زاویه (درجه)","angle",45,"number")+field("ارتفاع اولیه (m)","h",0,"number")+btn("run","محاسبه پرتابه")+result()+canvas();
+  if(mi===1)body=field("جرم اول (kg)","m1",5,"number")+field("جرم دوم (kg)","m2",10,"number")+field("فاصله (m)","r",2,"number")+btn("run","محاسبه نیروی گرانش")+result();
+  if(mi===2)body=field("شعاع مدار (m)","r",7000000,"number")+btn("run","محاسبه مدار")+result();
+  if(mi===3)body=field("ولتاژ (V)","v",12,"number")+field("مقاومت (Ω)","r",4,"number")+btn("run","محاسبه جریان")+result();
+  if(mi===4)body=field("ولتاژ (V)","v",12,"number")+field("مقاومت‌ها با کاما (Ω)","rs","2,4,6")+btn("run","تحلیل مدار")+result();
+  if(mi===5)body=field("دامنه","a",2,"number")+field("فرکانس (Hz)","f",1,"number")+field("زمان (s)","t",0,"number")+btn("run","نمایش موج")+result()+canvas();
+  if(mi===6)body=field("طول آونگ (m)","l",1,"number")+btn("run","محاسبه دوره تناوب")+result();
+  if(mi===7)body=field("طول اولیه (m)","l",2,"number")+field("ضریب انبساط (1/°C)","alpha",0.000012,"number")+field("تغییر دما (°C)","dt",50,"number")+btn("run","محاسبه انبساط")+result();
+  if(mi===8)body=field("جرم (kg)","m",1000,"number")+field("حجم (m³)","v",2,"number")+field("عمق (m)","h",5,"number")+btn("run","محاسبه چگالی و فشار")+result();
+  if(mi===9)body=field("جرم (kg)","m",2,"number")+field("سرعت (m/s)","v",10,"number")+btn("run","محاسبه انرژی")+result();
+ }else if(li===3){
+  if(mi===0)body=`<div class="field"><label>متن کد</label><textarea id="txt" rows="8" dir="ltr">const greeting = "Hello آزمایشگاه تیا";\nconsole.log(greeting);</textarea></div>`+btn("run","شمارش و بررسی")+result();
+  if(mi===1)body=field("اعداد با کاما","data","9,3,7,1,8,2,5")+field("روش","method","صعودی")+btn("run","مرتب‌سازی")+result();
+  if(mi===2)body=field("عدد ورودی","value","101101")+field("مبنای ورودی (۲ تا ۳۶)","from",2,"number")+field("مبنای خروجی (۲ تا ۳۶)","to",10,"number")+btn("run","تبدیل")+result();
+  if(mi===3)body=`<div class="field"><label>متن JSON</label><textarea id="txt" rows="7" dir="ltr">{"name":"آزمایشگاه تیا","modules":80}</textarea></div>`+btn("run","بررسی و مرتب‌سازی")+result();
+  if(mi===4)body=field("متن","value","آزمایشگاه تیا")+field("جابجایی حروف","shift",3,"number")+btn("run","رمزگذاری / رمزگشایی")+result();
+  if(mi===5)body=field("عدد اول","a",25,"number")+field("عملیات","op","×")+field("عدد دوم","b",4,"number")+btn("run","محاسبه")+result();
+  if(mi===6)body=field("متن آزمایشی","value","سلام دنیا 123")+field("الگوی Regex","pattern","\\d+")+btn("run","جست‌وجو")+result();
+  if(mi===7)body=`<div class="field"><label>متن</label><textarea id="txt" rows="7">آزمایشگاه تیا یک مجموعه ابزار علمی است.</textarea></div>`+btn("run","تحلیل متن")+result();
+  if(mi===8)body=`<div class="field"><label>کد JavaScript</label><textarea id="txt" rows="7" dir="ltr">[1,2,3].map(x => x * 2)</textarea></div>`+btn("run","اجرای محدود")+result()+`<div class="subtle">کد در محیط محدود اجرا می‌شود؛ از اجرای کد ناشناس خودداری کن.</div>`;
+  if(mi===9)body=field("عنوان صفحه","title","صفحه آزمایشی")+field("متن اصلی","body","به آزمایشگاه تیا خوش آمدید")+btn("run","ساخت نمونه HTML")+result();
+ }else if(li===4){
+  if(mi===0)body=field("سیاره","planet","زمین")+btn("run","نمایش اطلاعات")+result()+canvas();
+  if(mi===1)body=field("نیم‌محور بزرگ (km)","a",150000000,"number")+field("نیم‌محور کوچک (km)","b",149000000,"number")+btn("run","نمایش ویژگی مدار")+result()+canvas();
+  if(mi===2)body=field("قطر زمین (km)","earth",12742,"number")+field("قطر سیاره (km)","other",6779,"number")+btn("run","مقایسه اندازه")+result();
+  if(mi===3)body=field("جرم جسم (kg)","m",70,"number")+field("جرم سیاره","planet","مریخ")+btn("run","محاسبه وزن")+result();
+  if(mi===4)body=field("فاصله واقعی (km)","d",384400,"number")+field("مقیاس (km در هر cm)","scale",10000,"number")+btn("run","تبدیل مقیاس")+result();
+  if(mi===5)body=field("فاصله (km)","d",384400,"number")+btn("run","محاسبه زمان نور")+result();
+  if(mi===6)body=field("جرم (kg)","m",5.972e24,"number")+btn("run","محاسبه شعاع شوارتزشیلد")+result();
+  if(mi===7)body=field("جرم زمین (kg)","m1",5.972e24,"number")+field("جرم قمر (kg)","m2",7.35e22,"number")+btn("run","نسبت جرم")+result();
+  if(mi===8)body=field("مسافت (km)","d",225000000,"number")+field("سرعت متوسط (km/h)","v",40000,"number")+btn("run","زمان سفر تقریبی")+result();
+  if(mi===9)body=field("مقدار","v",1,"number")+field("واحد","unit","AU")+btn("run","تبدیل واحد نجومی")+result();
+ }else if(li===5){
+  if(mi===0)body=`<div class="field"><label>اعداد با کاما</label><textarea id="txt" rows="4">12,15,18,20,22,25,27</textarea></div>`+btn("run","تحلیل داده")+result();
+  if(mi===1)body=field("داده‌ها","data","4,8,6,5,3,9,10")+btn("run","محاسبه آمار")+result();
+  if(mi===2)body=field("داده‌ها","data","4,8,6,5,3,9,10")+btn("run","رسم نمودار")+canvas();
+  if(mi===3)body=field("مجموعه X","x","1,2,3,4,5")+field("مجموعه Y","y","2,4,5,4,6")+btn("run","محاسبه همبستگی")+result();
+  if(mi===4)body=field("داده‌ها","data","1,2,2,3,3,3,4,5,5")+btn("run","جدول فراوانی")+result();
+  if(mi===5)body=field("X","x","1,2,3,4,5")+field("Y","y","2,4,5,4,6")+btn("run","برازش خطی")+result()+canvas();
+  if(mi===6)body=field("تعداد نمونه","n",30,"number")+field("کمینه","min",0,"number")+field("بیشینه","max",100,"number")+btn("run","تولید داده")+result();
+  if(mi===7)body=field("X","x","1,2,3,4,5")+field("Y","y","2,4,5,4,6")+btn("run","رسم پراکندگی")+canvas();
+  if(mi===8)body=field("مجموعه اول","a","2,4,6,8")+field("مجموعه دوم","b","3,4,7,8")+btn("run","مقایسه مجموعه‌ها")+result();
+  if(mi===9)body=field("داده‌ها","data","10,12,14,16,18,20")+field("طول پنجره","k",3,"number")+btn("run","محاسبه میانگین متحرک")+result();
+ }else if(li===6){
+  if(mi===0)body=field("جرم زمین (kg)","m",5.972e24,"number")+field("شعاع زمین (km)","r",6371,"number")+btn("run","محاسبه داده‌های پایه")+result();
+  if(mi===1)body=field("عرض جغرافیایی اول","lat1",35.7,"number")+field("طول جغرافیایی اول","lon1",51.4,"number")+field("عرض جغرافیایی دوم","lat2",36.3,"number")+field("طول جغرافیایی دوم","lon2",59.6,"number")+btn("run","محاسبه فاصله")+result();
+  if(mi===2)body=field("عرض جغرافیایی","lat",35.7,"number")+field("طول جغرافیایی","lon",51.4,"number")+btn("run","بررسی مختصات")+result();
+  if(mi===3)body=field("فاصله روی نقشه (cm)","d",5,"number")+field("مقیاس (مثلاً ۱:۱۰۰۰۰)","scale",10000,"number")+btn("run","محاسبه فاصله واقعی")+result();
+  if(mi===4)body=field("دامنه موج ثبت‌شده","a",5,"number")+btn("run","نمایش رابطه بزرگی")+result();
+  if(mi===5)body=field("حجم تبخیر (km³)","v",100,"number")+field("زمان (روز)","t",30,"number")+btn("run","میانگین چرخه")+result();
+  if(mi===6)body=field("دمای هوا (°C)","t",30,"number")+field("رطوبت نسبی (%)","rh",60,"number")+btn("run","برآورد شاخص گرما")+result();
+  if(mi===7)body=field("عمق (m)","h",10,"number")+btn("run","محاسبه فشار آب")+result();
+  if(mi===8)body=field("مقدار","v",100,"number")+field("واحد","unit","km")+btn("run","تبدیل واحد")+result();
+  if(mi===9)body=`<div class="field"><label>موضوع اطلس</label><select id="topic"><option>چرخه سنگ</option><option>لایه‌های جو</option><option>چرخه آب</option><option>صفحات زمین‌ساختی</option><option>اقلیم</option></select></div>`+btn("run","نمایش یادداشت")+result();
+ }else{
+  const entries=[
+   ["ماری کوری","پژوهش‌های پیشگامانه در پرتوزایی؛ دریافت دو جایزه نوبل در دو رشته علمی."],
+   ["گاه‌شمار علم","از هندسه باستان تا مکانیک کلاسیک، الکترومغناطیس، نسبیت و عصر رایانش."],
+   ["فرمول‌های ریاضی","فیثاغورس: a²+b²=c² · اتحاد مربع: (a+b)²=a²+2ab+b² · دنباله حسابی: aₙ=a₁+(n−1)d"],
+   ["مفاهیم ریاضی","عدد اول فقط دو مقسوم‌علیه مثبت دارد. تابع، هر ورودی مجاز را به یک خروجی مشخص نسبت می‌دهد."],
+   ["مفاهیم فیزیک","نیرو باعث تغییر حرکت می‌شود. انرژی کمیتی پایسته است و می‌تواند از شکلی به شکل دیگر تبدیل شود."],
+   ["مبانی هوش مصنوعی","یادگیری ماشین روشی برای استخراج الگو از داده است؛ کیفیت داده و ارزیابی درست اهمیت اساسی دارند."],
+   ["واژه‌های اخترشناسی","واحد نجومی میانگین فاصله زمین تا خورشید است؛ سال نوری واحد فاصله است، نه زمان."],
+   ["فناوری‌های نو","رایانش کوانتومی، مواد پیشرفته، رباتیک و زیست‌فناوری حوزه‌هایی فعال در پژوهش امروزند."],
+   ["کشفیات مهم","قانون گرانش عمومی، نظریه میکروب‌ها، ساختار DNA و کشف امواج گرانشی از نقاط عطف علم‌اند."],
+   ["واژه‌نامه علمی","شتاب: آهنگ تغییر سرعت · چگالی: جرم بر حجم · بسامد: تعداد چرخه در واحد زمان."]
+  ];
+  body=`<div class="result" style="min-height:130px"><b>${entries[mi][0]}</b><br>${entries[mi][1]}</div><div class="subtle">این مدخل برای آشنایی اولیه نوشته شده است. برای استفاده پژوهشی، منبع تخصصی و به‌روز را نیز بررسی کن.</div>`;
+ }
+ body+=`<div class="toolbuttons"><button class="btn ghost" id="favBtn">☆ ${state.favs.includes(li+"-"+mi)?"حذف نشان":"نشان‌کردن این بخش"}</button></div>`;
+ return body;
+}
+function vals(ids){return Object.fromEntries(ids.map(id=>[id,document.getElementById(id)?.value]))}
+function num(id){return Number($("#"+id)?.value)}
+function arr(id){return ($("#"+id).value||"").split(/[,\s]+/).map(Number).filter(Number.isFinite)}
+function out(s){$("#result").innerHTML=s}
+function drawLine(canvasId,fn,xmin=-10,xmax=10,ymin=-10,ymax=10){let c=$("#"+canvasId);if(!c)return;let ctx=c.getContext("2d"),w=c.width,h=c.height;ctx.clearRect(0,0,w,h);ctx.strokeStyle="#273650";ctx.lineWidth=1;for(let i=0;i<=10;i++){let x=i*w/10,y=i*h/10;ctx.beginPath();ctx.moveTo(x,0);ctx.lineTo(x,h);ctx.stroke();ctx.beginPath();ctx.moveTo(0,y);ctx.lineTo(w,y);ctx.stroke()}ctx.strokeStyle="#7184a4";ctx.beginPath();let zy=h-(0-ymin)/(ymax-ymin)*h,zx=(0-xmin)/(xmax-xmin)*w;ctx.moveTo(0,zy);ctx.lineTo(w,zy);ctx.moveTo(zx,0);ctx.lineTo(zx,h);ctx.stroke();ctx.strokeStyle="#a99aff";ctx.lineWidth=2.5;ctx.beginPath();let started=false;for(let px=0;px<w;px++){let x=xmin+px/w*(xmax-xmin),y;try{y=fn(x)}catch{started=false;continue}let py=h-(y-ymin)/(ymax-ymin)*h;if(!Number.isFinite(py)||py< -h||py>2*h){started=false;continue}if(!started){ctx.moveTo(px,py);started=true}else ctx.lineTo(px,py)}ctx.stroke()}
+function wireModule(li,mi){
+ const run=$("#run");if(run)run.onclick=()=>{
+  try{
+   if(li===0){
+    if(mi===0){let n=Math.max(2,Math.min(200000,num("n")||2)),a=new Uint8Array(n+1).fill(1);a[0]=a[1]=0;for(let p=2;p*p<=n;p++)if(a[p])for(let k=p*p;k<=n;k+=p)a[k]=0;let primes=[];for(let i=2;i<=n;i++)if(a[i])primes.push(i);out(`تعداد اعداد اول تا ${n.toLocaleString("en-US")}: <b>${primes.length.toLocaleString("en-US")}</b><br>نمونه: ${primes.slice(0,30).join("، ")}`);let c=$("#plot"),ctx=c.getContext("2d");ctx.clearRect(0,0,c.width,c.height);let cols=50,cell= Math.max(3,Math.floor(c.width/cols));for(let i=0;i<Math.min(n,cols*Math.floor(c.height/cell));i++){ctx.fillStyle=a[i]?"#a99aff":"#273650";ctx.fillRect((i%cols)*cell,Math.floor(i/cols)*cell,cell-1,cell-1)}}
+    if(mi===1){let n=Math.max(10,Math.min(3000,num("n")||400)),c=$("#plot"),ctx=c.getContext("2d");ctx.clearRect(0,0,c.width,c.height);let cx=c.width/2,cy=c.height/2,scale=Math.min(c.width,c.height)/Math.sqrt(n)*.48;for(let v=1;v<=n;v++){let k=v-1,r=Math.sqrt(k),theta=k*2.399963;let x=cx+Math.cos(theta)*r*scale,y=cy+Math.sin(theta)*r*scale;if(isPrime(v)){ctx.fillStyle="#a99aff";ctx.fillRect(x,y,2.8,2.8)}}out(`مارپیچ اولام برای ${n.toLocaleString("en-US")} عدد رسم شد. نقاط روشن، اعداد اول‌اند.`)}
+    if(mi===2){let n=Math.floor(num("n"));out(!Number.isSafeInteger(n)||n<0?"عدد صحیح نامعتبر است.":n<2?`${n} عدد اول نیست.`:isPrime(n)?`${n} عدد اول است.`:`${n} عدد مرکب است.<br>تجزیه: ${factor(n).join(" × ")}`)}
+    if(mi===3){let n=Math.min(100000,Math.max(5,num("n"))),p=[];for(let i=2;i<=n;i++)if(isPrime(i))p.push(i);let pairs=[];for(let i=1;i<p.length;i++)if(p[i]-p[i-1]===2)pairs.push(`${p[i-1]} و ${p[i]}`);out(`تا ${n}: <b>${pairs.length}</b> جفت اول دوقلو پیدا شد.<br>${pairs.slice(0,40).join("، ")}`)}
+    if(mi===4){let n=Math.min(100000,Math.max(10,num("n"))),p=[];for(let i=2;i<=n;i++)if(isPrime(i))p.push(i);let gaps=p.slice(1).map((x,i)=>x-p[i]),max=Math.max(...gaps),counts={};gaps.forEach(g=>counts[g]=(counts[g]||0)+1);out(`تعداد اول‌ها: ${p.length}<br>بزرگ‌ترین فاصله: ${max}<br>فاصله‌های پرتکرار: ${Object.entries(counts).sort((a,b)=>b[1]-a[1]).slice(0,7).map(x=>x[0]+": "+x[1]).join(" · ")}`);drawLine("plot",x=>gaps[Math.max(0,Math.min(gaps.length-1,Math.floor((x+10)/20*gaps.length)))]||0,-10,10,0,max+3)}
+    if(mi===5){let n=Math.floor(num("n"));out(n<2||!Number.isSafeInteger(n)?"عدد باید صحیح و بزرگ‌تر از ۱ باشد.":`${n} = ${factor(n).join(" × ")}`)}
+    if(mi===6){let a=BigInt($("#a").value),b=BigInt($("#b").value),op=$("#op").value,v=op==="جمع"?a+b:op==="تفریق"?a-b:op==="ضرب"?a*b: b===0n?"تقسیم بر صفر تعریف نشده است.":a/b;out("نتیجه: <b>"+v.toString()+"</b>")}
+    if(mi===7){let n=Math.min(100,Math.max(1,num("n")||1)),a=0,b=1,s=[];for(let i=0;i<n;i++){s.push(a);[a,b]=[b,a+b]}out(s.join("، "))}
+    if(mi===8){let fn=$("#fn").value;if(!/^[0-9xX+\-*/().\s*^]+$/.test(fn))throw Error("تابع فقط می‌تواند شامل x و عملگرهای ریاضی باشد.");drawLine("plot",x=>Function("x",`return (${fn.replace(/\^/g,"**")})`)(x));out("نمودار تابع در بازه ۱۰- تا ۱۰ رسم شد.")}
+    if(mi===9){let a=num("a"),b=num("b"),shape=$("#shape").value;out(`مساحت ${shape}: <b>${(a*b).toLocaleString("en-US")}</b> واحد مربع`)}
+   }
+   if(li===1){
+    if(mi===0){let s=num("w")*num("x")+num("v")*num("y"),o=s>=num("t")?1:0;out(`مجموع وزن‌دار: ${s.toFixed(4)}<br>خروجی پرسپترون: <b>${o}</b>`)}
+    if(mi===1){let a=num("a"),w=0,rate=.15,rows=[];for(let i=0;i<Math.min(50,num("n"));i++){let x=i+1,y=a*x,error=y-w*x;w+=rate*error/(x*x||1);rows.push(w.toFixed(4))}out("وزن پس از هر گام:<br>"+rows.join(" ← "))}
+    if(mi===2){let target=$("#target").value,pop=Math.min(100,Math.max(10,num("pop"))),alphabet="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz 0123456789",generation=0,best="";while(generation<400){let candidates=Array.from({length:pop},()=>Array.from({length:target.length},()=>alphabet[Math.floor(Math.random()*alphabet.length)]).join(""));candidates.sort((a,b)=>score(b,target)-score(a,target));best=candidates[0];if(best===target)break;generation++;}out(`بهترین رشته در ${generation} نسل: <b>${best}</b><br>امتیاز تطبیق: ${score(best,target)} از ${target.length}<br><small>این نمونه آموزشی تصادفی است و تضمین رسیدن به جواب در تعداد نسل محدود ندارد.</small>`)}
+    if(mi===3||mi===5){let n=Math.max(3,Math.min(20,num("n")||8)),start=mi===5?num("a"):0,end=mi===5?num("b"):n*n-1,cols=Math.ceil(Math.sqrt(n*n));let path=bfs(start,end,cols,n*n);out(path?`مسیر پیدا شد؛ تعداد گام‌ها: ${path.length-1}<br>${path.join(" ← ")}`:"مسیر پیدا نشد.");drawGridPath("plot",n,path)}
+    if(mi===4){let q=0,alpha=num("alpha"),r=num("r"),rows=[];for(let i=0;i<Math.min(100,num("n"));i++){q=q+alpha*(r-q);rows.push(q.toFixed(3))}out("مقادیر Q در تکرارها:<br>"+rows.join("، "))}
+    if(mi===6){let a=arr("data"),b=a.filter(Number.isFinite);out(`ورودی: ${a.length} مقدار<br>مقادیر معتبر: ${b.length}<br>مرتب‌شده: ${b.sort((x,y)=>x-y).join("، ")}`)}
+    if(mi===7){let t=num("t"),a=arr("data"),left=a.filter(x=>x<t),right=a.filter(x=>x>=t);out(`ویژگی کمتر از ${t}: [${left}]<br>ویژگی بزرگ‌تر یا مساوی ${t}: [${right}]`)}
+    if(mi===8){let xs=arr("xs"),ys=arr("ys"),k=Math.max(1,Math.min(5,num("k")));if(xs.length!==ys.length||!xs.length)throw Error("تعداد مختصات X و Y باید برابر باشد.");let pts=xs.map((x,i)=>[x,ys[i]]),centers=pts.slice(0,k).map(p=>p.slice());for(let z=0;z<12;z++){let groups=centers.map(()=>[]);pts.forEach(p=>{let ix=centers.map(c=>Math.hypot(c[0]-p[0],c[1]-p[1])).indexOf(Math.min(...centers.map(c=>Math.hypot(c[0]-p[0],c[1]-p[1]))));groups[ix].push(p)});centers=groups.map((g,i)=>g.length?[g.reduce((s,p)=>s+p[0],0)/g.length,g.reduce((s,p)=>s+p[1],0)/g.length]:centers[i])}out("مرکزهای خوشه:<br>"+centers.map(c=>`(${c[0].toFixed(2)}, ${c[1].toFixed(2)})`).join(" · "));drawScatter("plot",pts)}
+    if(mi===9){let a=arr("actual"),p=arr("pred");if(a.length!==p.length||!a.length)throw Error("طول دو فهرست باید برابر باشد.");let tp=0,tn=0,fp=0,fn=0;a.forEach((v,i)=>{if(v===1&&p[i]===1)tp++;else if(v===0&&p[i]===0)tn++;else if(v===0&&p[i]===1)fp++;else fn++});out(`درست مثبت: ${tp} · درست منفی: ${tn}<br>خطای مثبت: ${fp} · خطای منفی: ${fn}<br>دقت: ${((tp+tn)/a.length*100).toFixed(1)}٪`)}
+   }
+   if(li===2){
+    if(mi===0){let v=num("v"),ang=num("angle")*Math.PI/180,h=num("h"),g=9.81,t=(v*Math.sin(ang)+Math.sqrt((v*Math.sin(ang))**2+2*g*h))/g,range=v*Math.cos(ang)*t,maxh=h+(v*Math.sin(ang))**2/(2*g);out(`زمان پرواز: ${t.toFixed(2)} s<br>برد افقی: ${range.toFixed(2)} m<br>بیشینه ارتفاع: ${maxh.toFixed(2)} m`);drawLine("plot",x=>h+Math.tan(ang)*x-g*x*x/(2*v*v*Math.cos(ang)**2),0,Math.max(1,range),0,maxh*1.2)}
+    if(mi===1){let G=6.6743e-11,F=G*num("m1")*num("m2")/num("r")**2;out(`نیروی گرانش: <b>${F.toExponential(5)} نیوتن</b>`)}
+    if(mi===2){let r=num("r"),mu=3.986004418e14,t=2*Math.PI*Math.sqrt(r**3/mu),v=Math.sqrt(mu/r);out(`سرعت مداری: ${(v/1000).toFixed(3)} km/s<br>دوره گردش: ${(t/60).toFixed(2)} دقیقه`)}
+    if(mi===3){out(`جریان: <b>${(num("v")/num("r")).toFixed(4)} آمپر</b><br>توان: ${(num("v")**2/num("r")).toFixed(4)} وات`)}
+    if(mi===4){let rs=arr("rs"),ser=rs.reduce((a,b)=>a+b,0),par=1/rs.reduce((a,b)=>a+1/b,0);out(`مقاومت معادل سری: ${ser} Ω<br>مقاومت معادل موازی: ${par.toFixed(4)} Ω`)}
+    if(mi===5){let a=num("a"),f=num("f"),t=num("t");drawLine("plot",x=>a*Math.sin(2*Math.PI*f*x+t),-2,2,-a*1.3,a*1.3);out(`موج سینوسی با دامنه ${a} و فرکانس ${f} هرتز رسم شد.`)}
+    if(mi===6){let T=2*Math.PI*Math.sqrt(num("l")/9.81);out(`دوره تناوب آونگ ساده: <b>${T.toFixed(4)} ثانیه</b><br>این رابطه برای زاویه‌های کوچک تقریب مناسبی است.`)}
+    if(mi===7){let d=num("alpha")*num("l")*num("dt");out(`افزایش طول: ${d.toFixed(6)} متر<br>طول نهایی: ${(num("l")+d).toFixed(6)} متر`)}
+    if(mi===8){let rho=num("m")/num("v"),p=1000*9.81*num("h");out(`چگالی: ${rho.toFixed(2)} kg/m³<br>فشار هیدروستاتیک آب: ${p.toFixed(2)} Pa`)}
+    if(mi===9){out(`انرژی جنبشی: <b>${(.5*num("m")*num("v")**2).toFixed(3)} ژول</b>`)}
+   }
+   if(li===3){
+    if(mi===0){let t=$("#txt").value;out(`تعداد نویسه: ${t.length}<br>تعداد واژه: ${t.trim()?t.trim().split(/\s+/).length:0}<br>تعداد خط: ${t.split("\n").length}`)}
+    if(mi===1){let a=arr("data").sort((x,y)=>x-y);out(a.join("، "))}
+    if(mi===2){let v=$("#value").value,a=num("from"),b=num("to");if(a<2||a>36||b<2||b>36)throw Error("مبنا باید بین ۲ تا ۳۶ باشد.");let n=parseInt(v,a);if(!Number.isFinite(n))throw Error("عدد ورودی با مبنای انتخاب‌شده سازگار نیست.");out(n.toString(b).toUpperCase())}
+    if(mi===3){let o=JSON.parse($("#txt").value);out(`<pre dir="ltr" style="white-space:pre-wrap">${escapeHtml(JSON.stringify(o,null,2))}</pre>`)}
+    if(mi===4){let t=$("#value").value,s=num("shift"),encode=t=>t.replace(/[a-z]/gi,c=>String.fromCharCode((c.charCodeAt(0)-(c<="Z"?65:97)+s+26)%26+(c<="Z"?65:97)));out(encode(t))}
+    if(mi===5){let a=num("a"),b=num("b"),op=$("#op").value;out("نتیجه: "+(op==="+"?a+b:op==="−"?a-b:op==="÷"?a/b:a*b))}
+    if(mi===6){let re=new RegExp($("#pattern").value,"g"),t=$("#value").value,m=[...t.matchAll(re)];out(`تعداد تطبیق: ${m.length}<br>${m.map(x=>escapeHtml(x[0])).join("، ")||"موردی پیدا نشد."}`)}
+    if(mi===7){let t=$("#txt").value;out(`نویسه: ${t.length}<br>واژه: ${t.trim()?t.trim().split(/\s+/).length:0}<br>حروف بدون فاصله: ${t.replace(/\s/g,"").length}<br>خطوط: ${t.split("\n").length}`)}
+    if(mi===8){let code=$("#txt").value;let worker=new Worker(URL.createObjectURL(new Blob([`onmessage=()=>{try{let r=(new Function('"use strict";return ('+${JSON.stringify(code)}+'))')();postMessage({ok:true,value:String(r)})}catch(e){postMessage({ok:false,value:e.message})}}`],{type:"text/javascript"})));worker.onmessage=e=>{out(e.data.ok?escapeHtml(e.data.value):"خطا: "+escapeHtml(e.data.value));worker.terminate()};worker.postMessage(1);setTimeout(()=>worker.terminate(),700)}
+    if(mi===9){let t=$("#title").value,b=$("#body").value;out(`<pre dir="ltr" style="white-space:pre-wrap">${escapeHtml(`<h1>${t}</h1>\n<p>${b}</p>`)}</pre>`)}
+   }
+   if(li===4){
+    if(mi===0){let names={زمین:["۱۲٬۷۴۲","۵٬۹۷۲×۱۰²⁴","۱"],مریخ:["۶٬۷۷۹","۶٫۴۲×۱۰²³","۰٫۳۸"],مشتری:["۱۳۹٬۸۲۰","۱٫۹×۱۰²⁷","۲٫۵۳"],زهره:["۱۲٬۱۰۴","۴٫۸۷×۱۰²⁴","۰٫۹۰"],زحل:["۱۱۶٬۴۶۰","۵٫۶۸×۱۰²⁶","۱٫۰۷"]};let a=names[$("#planet").value]||names["زمین"];out(`قطر تقریبی: ${a[0]} کیلومتر<br>جرم: ${a[1]} کیلوگرم<br>گرانش سطحی نسبت به زمین: ${a[2]}`);drawPlanet("plot")}
+    if(mi===1){let a=num("a"),b=num("b"),e=Math.sqrt(1-b*b/(a*a));out(`خروج از مرکز: ${e.toFixed(6)}<br>نسبت b/a: ${(b/a).toFixed(6)}`);drawLine("plot",x=>b*Math.sqrt(Math.max(0,1-x*x/(a*a))),-a,a,-b*1.2,b*1.2)}
+    if(mi===2){let ratio=num("other")/num("earth");out(`نسبت قطر: ${ratio.toFixed(4)} برابر زمین<br>نسبت حجم تقریبی: ${(ratio**3).toFixed(4)} برابر` )}
+    if(mi===3){let g={زمین:9.81,مریخ:3.71,مشتری:24.79,زهره:8.87,ماه:1.62,زحل:10.44};out(`وزن روی ${$("#planet").value}: <b>${(num("m")*(g[$("#planet").value]||9.81)).toFixed(2)} نیوتن</b>`)}
+    if(mi===4){out(`فاصله در مدل: <b>${(num("d")/num("scale")).toFixed(3)} سانتی‌متر</b>`)}
+    if(mi===5){out(`زمان رسیدن نور: <b>${(num("d")/299792.458).toFixed(3)} ثانیه</b>`)}
+    if(mi===6){let rs=2*6.6743e-11*num("m")/(299792458**2);out(`شعاع شوارتزشیلد: <b>${rs.toExponential(5)} متر</b><br>این مقدار یک نتیجه نظری از نسبیت عام برای جرم کروی است.`)}
+    if(mi===7){out(`نسبت جرم دوم به اول: ${(num("m2")/num("m1")).toExponential(4)}`)}
+    if(mi===8){let t=num("d")/num("v");out(`زمان سفر با سرعت ثابت: <b>${(t/24).toFixed(2)} روز</b><br>زمان برآوردی است و شتاب‌گیری، مسیر و پنجره پرتاب را در نظر نمی‌گیرد.`)}
+    if(mi===9){let u=$("#unit").value,v=num("v"),f={AU:149597870.7,"سال نوری":9.4607e12,"پارْسِک":3.0857e13,km:1};out(`${(v*(f[u]||1)).toLocaleString("en-US")} کیلومتر`)}
+   }
+   if(li===5){
+    if(mi===0||mi===1){let a=mi===0?$("#txt").value.split(/[,\s]+/).map(Number).filter(Number.isFinite):arr("data");out(statsText(a))}
+    if(mi===2||mi===7){let x=mi===2?arr("data"):arr("x"),y=mi===7?arr("y"):x;drawBars("plot",x);out(`تعداد داده‌ها: ${x.length}`)}
+    if(mi===3){let x=arr("x"),y=arr("y");out("ضریب همبستگی پیرسون: <b>"+corr(x,y).toFixed(5)+"</b>")}
+    if(mi===4){let a=arr("data"),m={};a.forEach(x=>m[x]=(m[x]||0)+1);out(Object.entries(m).sort((a,b)=>+a[0]-b[0]).map(([k,v])=>`${k}: ${v} بار`).join("<br>"))}
+    if(mi===5){let x=arr("x"),y=arr("y"),fit=regression(x,y);out(`شیب: ${fit.m.toFixed(4)}<br>عرض از مبدأ: ${fit.b.toFixed(4)}<br>معادله: y = ${fit.m.toFixed(3)}x + ${fit.b.toFixed(3)}`);drawLine("plot",z=>fit.m*z+fit.b,-10,10,-10,10)}
+    if(mi===6){let n=Math.min(500,Math.max(1,num("n"))),a=Array.from({length:n},()=>num("min")+Math.random()*(num("max")-num("min")));out(a.map(x=>x.toFixed(2)).join("، "))}
+    if(mi===8){let a=arr("a"),b=arr("b"),inter=a.filter(x=>b.includes(x)),union=[...new Set([...a,...b])];out(`اشتراک: ${inter.join("، ")}<br>اجتماع: ${union.join("، ")}`)}
+    if(mi===9){let a=arr("data"),k=Math.max(1,Math.floor(num("k"))),m=a.map((_,i)=>i+k<=a.length?a.slice(i,i+k).reduce((s,x)=>s+x,0)/k:null).filter(x=>x!==null);out("میانگین‌های متحرک: "+m.map(x=>x.toFixed(2)).join("، "))}
+   }
+   if(li===6){
+    if(mi===0){out(`جرم: ${num("m").toExponential(4)} kg<br>شعاع: ${num("r").toLocaleString("en-US")} km<br>چگالی متوسط: ${(num("m")/(4/3*Math.PI*(num("r")*1000)**3)).toFixed(0)} kg/m³`)}
+    if(mi===1){let rad=x=>x*Math.PI/180,lat1=rad(num("lat1")),lat2=rad(num("lat2")),dl=rad(num("lat2")-num("lat1")),dn=rad(num("lon2")-num("lon1")),h=Math.sin(dl/2)**2+Math.cos(lat1)*Math.cos(lat2)*Math.sin(dn/2)**2,d=2*6371*Math.asin(Math.sqrt(h));out(`فاصله قوسی تقریبی: <b>${d.toFixed(2)} کیلومتر</b>`)}
+    if(mi===2){let a=num("lat"),b=num("lon");out(Math.abs(a)<=90&&Math.abs(b)<=180?`مختصات از نظر بازه معتبر است.<br>عرض: ${a}° · طول: ${b}°`:"مختصات خارج از بازه مجاز است.")}
+    if(mi===3){out(`فاصله واقعی: <b>${(num("d")*num("scale")/100000).toFixed(3)} کیلومتر</b>`)}
+    if(mi===4){out(`این ورودی به‌تنهایی برای تعیین بزرگی زلزله کافی نیست. در مقیاس محلی، بزرگی با لگاریتم دامنه موج و تصحیح فاصله محاسبه می‌شود. دامنه واردشده: ${num("a")}`)}
+    if(mi===5){out(`میانگین حجم در روز: ${(num("v")/num("t")).toFixed(3)} کیلومتر مکعب در روز`)}
+    if(mi===6){let t=num("t"),rh=num("rh"),hi=-8.784695+1.61139411*t+2.338549*rh-0.14611605*t*rh-0.012308094*t*t-0.016424828*rh*rh+0.002211732*t*t*rh+0.00072546*t*rh*rh-0.000003582*t*t*rh*rh;out(`شاخص گرمای تقریبی: <b>${hi.toFixed(1)} °C</b><br>این برآورد برای شرایط گرم و رطوبت مشخص است و جایگزین هشدار رسمی هواشناسی نیست.`)}
+    if(mi===7){out(`فشار آب در عمق ${num("h")} متر: <b>${(1000*9.81*num("h")).toFixed(0)} پاسکال</b> (فشار گیج)`)}
+    if(mi===8){let u=$("#unit").value,v=num("v"),f={km:1000,m:1,cm:.01,mm:.001,ft:.3048};out(`${(v*(f[u]||1)).toLocaleString("en-US")} متر`)}
+    if(mi===9){let t=$("#topic").value,txt={"چرخه سنگ":"سنگ‌ها در چرخه‌ای طولانی میان حالت آذرین، رسوبی و دگرگونی تغییر می‌کنند.","لایه‌های جو":"تروپوسفر، استراتوسفر، مزوسفر، ترموسفر و اگزوسفر لایه‌های اصلی جو هستند.","چرخه آب":"تبخیر، تراکم، بارش، نفوذ و رواناب بخش‌هایی از چرخه پیوسته آب‌اند.","صفحات زمین‌ساختی":"سنگ‌کره زمین به صفحه‌هایی تقسیم شده که حرکت آن‌ها در مرزها زلزله، آتشفشان و کوه‌زایی ایجاد می‌کند.","اقلیم":"اقلیم الگوی بلندمدت دما، بارش، باد و دیگر شرایط جوی یک منطقه است."};out(txt[t])}
+   }
+   if(li===7){out("برای این مدخل، یادداشت مرجع در صفحه نمایش داده می‌شود. برای مطالعه دقیق‌تر می‌توانی عنوان را در منابع علمی معتبر جست‌وجو کنی.")}
+  }catch(e){out("خطا: "+escapeHtml(e.message||"ورودی‌ها را بررسی کن."))}
+ };
+ $("#favBtn").onclick=()=>toggleFav(li+"-"+mi);
+}
+function isPrime(n){if(n<2)return false;if(n%2===0)return n===2;for(let i=3;i*i<=n;i+=2)if(n%i===0)return false;return true}
+function factor(n){let a=[];for(let p=2;p*p<=n;p++)while(n%p===0){a.push(p);n/=p}if(n>1)a.push(n);return a}
+function score(a,b){let s=0;for(let i=0;i<Math.min(a.length,b.length);i++)if(a[i]===b[i])s++;return s}
+function bfs(start,end,cols,total){let q=[[start]],seen=new Set([start]);while(q.length){let p=q.shift(),v=p.at(-1);if(v===end)return p;let ns=[v-1,v+1,v-cols,v+cols].filter(x=>x>=0&&x<total&&Math.abs(Math.floor(x/cols)-Math.floor(v/cols))+Math.abs(x%cols-v%cols)===1);for(let x of ns)if(!seen.has(x)){seen.add(x);q.push([...p,x])}}return null}
+function drawGridPath(id,n,path){let c=$("#"+id);if(!c)return;let ctx=c.getContext("2d"),w=c.width,h=c.height,cols=Math.ceil(Math.sqrt(n*n)),cell=Math.min(w/cols,h/cols);ctx.clearRect(0,0,w,h);for(let i=0;i<n*n;i++){ctx.fillStyle=path?.includes(i)?"#8e80ff":"#233149";ctx.fillRect(i%cols*cell+2,Math.floor(i/cols)*cell+2,cell-4,cell-4)}}
+function drawScatter(id,pts){let c=$("#"+id);if(!c)return;let ctx=c.getContext("2d");ctx.clearRect(0,0,c.width,c.height);pts.forEach(p=>{ctx.fillStyle="#9e8aff";ctx.beginPath();ctx.arc(30+p[0]*25,c.height-30-p[1]*25,5,0,Math.PI*2);ctx.fill()})}
+function drawBars(id,a){let c=$("#"+id);if(!c)return;let ctx=c.getContext("2d"),w=c.width,h=c.height;ctx.clearRect(0,0,w,h);let max=Math.max(1,...a);a.forEach((v,i)=>{let bw=w/Math.max(1,a.length)-4;ctx.fillStyle="#9b8cff";ctx.fillRect(i*(bw+4),h-v/max*(h-25),bw,v/max*(h-25))})}
+function drawPlanet(id){let c=$("#"+id);if(!c)return;let x=c.getContext("2d"),w=c.width,h=c.height;x.clearRect(0,0,w,h);let g=x.createRadialGradient(w*.43,h*.4,5,w*.5,h*.5,150);g.addColorStop(0,"#a5a5ff");g.addColorStop(.5,"#5269a9");g.addColorStop(1,"#10182c");x.fillStyle=g;x.beginPath();x.arc(w/2,h/2,110,0,7);x.fill();x.strokeStyle="#b6a8ff88";x.lineWidth=3;x.beginPath();x.ellipse(w/2,h/2,170,40,-.35,0,7);x.stroke()}
+function statsText(a){if(!a.length)return"داده معتبری وارد نشده است.";let s=[...a].sort((x,y)=>x-y),mean=a.reduce((x,y)=>x+y,0)/a.length,med=s.length%2?s[(s.length-1)/2]:(s[s.length/2-1]+s[s.length/2])/2,variance=a.reduce((x,y)=>x+(y-mean)**2,0)/a.length;return `تعداد: ${a.length}<br>کمینه: ${s[0]} · بیشینه: ${s.at(-1)}<br>میانگین: ${mean.toFixed(3)} · میانه: ${med}<br>انحراف معیار جامعه: ${Math.sqrt(variance).toFixed(3)}`}
+function corr(a,b){if(a.length!==b.length||!a.length)throw Error("دو مجموعه باید هم‌اندازه باشند.");let ma=a.reduce((s,x)=>s+x,0)/a.length,mb=b.reduce((s,x)=>s+x,0)/b.length,num=0,da=0,db=0;for(let i=0;i<a.length;i++){num+=(a[i]-ma)*(b[i]-mb);da+=(a[i]-ma)**2;db+=(b[i]-mb)**2}return num/Math.sqrt(da*db)}
+function regression(x,y){if(x.length!==y.length||x.length<2)throw Error("حداقل دو جفت داده لازم است.");let mx=x.reduce((a,b)=>a+b,0)/x.length,my=y.reduce((a,b)=>a+b,0)/y.length,m=x.reduce((s,v,i)=>s+(v-mx)*(y[i]-my),0)/x.reduce((s,v)=>s+(v-mx)**2,0);return {m,b:my-m*mx}}
+function escapeHtml(s){return String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
+function toggleFav(key){if(state.favs.includes(key))state.favs=state.favs.filter(x=>x!==key);else state.favs.push(key);save();stats();renderFavs();toast("فهرست نشان‌شده‌ها به‌روز شد.")}
+function renderFavs(){let el=$("#favorites");el.innerHTML=state.favs.map(k=>{let [l,m]=k.split("-").map(Number);return `<button class="module" data-fav="${k}"><span class="num">${labs[l].icon}</span><span><b>${labs[l].mods[m]}</b><small>${labs[l].name}</small></span><em>←</em></button>`}).join("")||'<div class="empty">هنوز بخشی نشان نشده است.</div>';$$("[data-fav]").forEach(b=>b.onclick=()=>{let [l,m]=b.dataset.fav.split("-").map(Number);openModule(l,m)})}
+function recent(){$("#recent").innerHTML=state.history.slice(0,4).map(x=>`<div>${escapeHtml(x.s)} <small style="color:#71809a"> · ${x.t}</small></div>`).join("")||"هنوز فعالیتی ثبت نشده است."}
+function renderHistory(){$("#history").innerHTML=state.history.map(x=>`<div class="historyrow"><span>${escapeHtml(x.s)}</span><small>${x.t}</small></div>`).join("")||'<div class="empty">هنوز فعالیتی ثبت نشده است.</div>'}
+function filterLabs(q){let term=q.toLowerCase(),ids=[];labs.forEach((l,i)=>{if((l.name+l.en+l.desc+l.mods.join("")).toLowerCase().includes(term))ids.push(i)});$("#allCards").innerHTML=ids.map(i=>card(labs[i],i)).join("")||'<div class="empty">موردی پیدا نشد.</div>';bindCards();$("#labCount").textContent=digits(ids.length)+" آزمایشگاه"}
+drawCards();stats();recent();renderFavs();
+$$("[data-view]").forEach(b=>b.onclick=()=>{let v=b.dataset.view;show(v);if(v==="history")renderHistory();if(v==="favorites")renderFavs()});
+$$("[data-quick]").forEach(b=>b.onclick=()=>openQuick(b.dataset.quick));
+$("#labFilter").oninput=e=>filterLabs(e.target.value);
+$("#globalSearch").onkeydown=e=>{if(e.key==="Enter"){let q=e.target.value.trim().toLowerCase();if(!q)return;let found=[];labs.forEach((l,i)=>l.mods.forEach((m,j)=>{if(m.toLowerCase().includes(q)||l.name.toLowerCase().includes(q))found.push([i,j])}));if(found.length===1)openModule(...found[0]);else{show("labs","نتایج جست‌وجو");$("#labFilter").value=e.target.value;filterLabs(e.target.value)}}};
+$("#theme").onclick=()=>{document.body.classList.toggle("light");localStorage.setItem("tia_theme",document.body.classList.contains("light")?"light":"dark")};
+if(localStorage.getItem("tia_theme")==="light")document.body.classList.add("light");
+$("#hamb").onclick=()=>$("#side").classList.toggle("open");
+$("#full").onclick=()=>document.fullscreenElement?document.exitFullscreen():document.documentElement.requestFullscreen?.();
+document.addEventListener("keydown",e=>{if(e.key==="/"&&!["INPUT","TEXTAREA"].includes(document.activeElement.tagName)){e.preventDefault();$("#globalSearch").focus()}if(e.key==="Escape")$("#side").classList.remove("open")});
+</script>
+<script src="assets/routes.js"></script>
+<script src="assets/mathcore.js"></script>
+<script src="assets/engines.js"></script>
+<script src="assets/engines2.js"></script>
+<script src="assets/engines3.js"></script>
+<script src="assets/engines4.js"></script>
+<script src="assets/engines5.js"></script>
+<script src="assets/engines7.js"></script>
+<script src="assets/engines8.js"></script>
+<script src="assets/engines9.js"></script>
+<script src="assets/engines10.js"></script>
+<script src="assets/people.js"></script>
+<script src="assets/about.js"></script>
+<script src="assets/scene3d.js"></script>
+<script src="assets/scene3d2.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/build/three.min.js" crossorigin="anonymous"></script>
+<script src="assets/scene3d3.js"></script>
+<script src="assets/engines6.js"></script>
+<script src="assets/fx.js"></script>
+</body></html>
