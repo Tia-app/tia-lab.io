@@ -1,7 +1,7 @@
 (()=>{
 const {isP,bp,fac,cnt,nOf,inv,compile}=TM;
 const en=s=>String(s).replace(/[۰-۹]/g,d=>d.charCodeAt(0)-1776).replace(/[٬,_\s]/g,"");
-const E={};let RAF=0;const g=id=>document.getElementById(id);
+const nav=(l,m)=>{try{history.replaceState(null,"",ROUTES.u(l,m))}catch(e){}};const E={};let RAF=0;const g=id=>document.getElementById(id);
 const F=(id,l,v)=>`<div class="field"><label>${l}</label><input id="${id}" value="${v}" autocomplete="off"></div>`;
 const R=(id,l,a,b,v)=>`<div class="field"><label>${l}</label><input id="${id}" type="range" min="${a}" max="${b}" value="${v}"></div>`;
 const Bt=(id,l,c="primary")=>`<button class="btn ${c}" id="${id}">${l}</button>`;
@@ -49,7 +49,7 @@ if(n>=2n){let a=n+1n,k=0;while(!bp(a)&&performance.now()-t0<2500){a++;k++}r+=`ع
 if(p&&bp(2n*n+1n))r+="عدد اول سوفی ژرمن است (۲n+۱ هم اول است).<br>";
 if(p&&n>2n)r+=`باقیمانده بر ۶: ${n%6n} ${(n%6n===1n||n%6n===5n)?"":"(غیرعادی)"}<br>`;
 o.innerHTML=r+`<small>زمان محاسبه: ${(performance.now()-t0).toFixed(1)} میلی‌ثانیه</small>`}catch(e){o.textContent="خطا: "+e.message}};
-g("pg").onclick=go;g("pn").onkeydown=e=>e.key==="Enter"&&go();go()};
+g("pg").onclick=go;g("pn").onkeydown=e=>{if(e.key==="Enter")go()};go()};
 
 E["0-5"]=h=>{
 h.innerHTML=`<div class="ctl">${F("fn","عدد صحیح (بدون محدودیت طول)","600851475143")}${Bt("fg","تجزیه کن")}</div><div class="result" id="fo"></div>`;
@@ -57,7 +57,7 @@ const go=()=>{const o=g("fo");try{const s=en(g("fn").value);if(!/^\d+$/.test(s)|
 const m=new Map();f.forEach(p=>m.set(p,(m.get(p)||0)+1));const ex=[...m];let tau=1n,sig=1n,phi=n;ex.forEach(([p,e])=>{tau*=BigInt(e+1);sig*=(p**BigInt(e+1)-1n)/(p-1n);phi=phi/p*(p-1n)});
 const cls=sig-n>n?"فراوان":sig-n===n?"کامل":"ناقص";
 o.innerHTML=`<span class="mono">${s} = ${ex.map(([p,e])=>e>1?`${p}<sup>${e}</sup>`:p).join(" × ")}</span><br>تعداد مقسوم‌علیه‌ها τ: <span class="mono">${tau}</span><br>مجموع مقسوم‌علیه‌ها σ: <span class="mono">${sig}</span> (${cls})<br>تابع اویلر φ: <span class="mono">${phi}</span><br><small>${f.length===1?"عدد اول است · ":""}زمان: ${(performance.now()-t0).toFixed(1)} میلی‌ثانیه</small>`}catch(e){o.textContent="خطا: "+e.message}};
-g("fg").onclick=go;g("fn").onkeydown=e=>e.key==="Enter"&&go();go()};
+g("fg").onclick=go;g("fn").onkeydown=e=>{if(e.key==="Enter")go()};go()};
 
 E["0-8"]=h=>{
 h.innerHTML=`<div class="ctl">${F("f1","f₁(x)","sin(x)*x")}${F("f2","f₂(x)","x^2/10-3")}${F("f3","f₃(x)","5*exp(-x^2)")}${Bt("fr","بازنشانی نما","ghost")}</div><div class="result" id="fo" dir="ltr">sin cos tan asin acos atan sinh cosh tanh exp ln log sqrt abs floor ceil round pi e</div>`;
@@ -119,8 +119,8 @@ x.fillStyle="#9aa8c0";x.font="13px Vazirmatn,Arial";x.textAlign="right";x.fillTe
 const om=window.openModule;window.openModule=function(li,mi){const from=state.view;cancelAnimationFrame(RAF);om(li,mi);const k=li+"-"+mi,t=$(".tool");
 $("#toolBack").onclick=()=>from==="detail"||from==="tool"?openLab(li):show(from);
 if(E[k]){[...t.children].slice(3).forEach(n=>n.remove());t.classList.add("wide");const d=document.createElement("div");d.id="eng";t.appendChild(d);E[k](d);t.insertAdjacentHTML("beforeend",`<div class="toolbuttons"><button class="btn ghost" id="favBtn">☆ نشان‌کردن این بخش</button></div>`);$("#favBtn").onclick=()=>toggleFav(k)}
-document.title=labs[li].mods[mi]+" | آزمایشگاه تیا";history.replaceState(null,"","#/"+li+"/"+mi)};
-const ol=window.openLab;window.openLab=function(i){cancelAnimationFrame(RAF);ol(i);$$("[data-module]").forEach(b=>{if(E[i+"-"+b.dataset.module]){b.classList.add("eng");b.querySelector("small").textContent="موتور پژوهشی · شبیه‌سازی زنده"}});document.title=labs[i].name+" | آزمایشگاه تیا";history.replaceState(null,"","#/"+i)};
-const sh=window.show;window.show=function(v,t){if(v!=="tool")cancelAnimationFrame(RAF);sh(v,t);if(v==="home"||v==="labs"){history.replaceState(null,"","#/");document.title=v==="home"?"آزمایشگاه تیا | آزمایشگاه آنلاین ریاضی، فیزیک، فضا و هوش مصنوعی":"آزمایشگاه‌ها | آزمایشگاه تیا"}};
+document.title=labs[li].mods[mi]+" | آزمایشگاه تیا";nav(li,mi)};
+const ol=window.openLab;window.openLab=function(i){cancelAnimationFrame(RAF);ol(i);$$("[data-module]").forEach(b=>{if(E[i+"-"+b.dataset.module]){b.classList.add("eng");b.querySelector("small").textContent="موتور پژوهشی · شبیه‌سازی زنده"}});document.title=labs[i].name+" | آزمایشگاه تیا";nav(i)};
+const sh=window.show;window.show=function(v,t){if(v!=="tool")cancelAnimationFrame(RAF);sh(v,t);if(v==="home"||v==="labs"){nav();document.title=v==="home"?"آزمایشگاه تیا | آزمایشگاه آنلاین ریاضی، فیزیک، فضا و هوش مصنوعی":"آزمایشگاه‌ها | آزمایشگاه تیا"}};
 const m=location.hash.match(/^#\/([0-7])(?:\/(\d))?$/);if(m){m[2]!==undefined?openModule(+m[1],+m[2]):openLab(+m[1])}
 })();
