@@ -5,7 +5,7 @@ E=html.escape
 T=open(os.path.join(ROOT,"index.html"),encoding="utf8").read()
 blk=re.search(r"const labs=\[(.*?)\n\];",T,re.S).group(1)
 labs=[dict(name=m[1],en=m[2],desc=m[3],mods=re.findall(r'"([^"]+)"',m[4])) for m in re.finditer(r'\{name:"([^"]+)",en:"([^"]+)",icon:"[^"]*",tone:"[^"]+",desc:"([^"]+)",mods:\[(.*?)\]\}',blk,re.S)]
-LS=["math","ai","physics","tech","space","data","earth","library"]
+LS=["math","ai","physics","tech","space","data","earth","library","biology"]
 MS=[["sieve","ulam-spiral","prime-test","twin-primes","prime-gaps","factorization","big-numbers","sequences","function-plotter","geometry"],
 ["perceptron","function-learning","genetic-algorithm","pathfinding-agent","q-learning","path-search","data-cleaning","decision-stump","kmeans","classification-metrics"],
 ["projectile","gravity","mirrors","circuit-builder","rc-rl-circuits","wave-interference","magnetism","static-electricity","lorentz-force","lenses-refraction"],
@@ -13,16 +13,19 @@ MS=[["sieve","ulam-spiral","prime-test","twin-primes","prime-gaps","factorizatio
 ["solar-system","orbit-ellipse","planet-sizes","weight-on-planets","distance-scale","light-time","schwarzschild-radius","moons","travel-time","astronomical-units"],
 ["z-scores","descriptive-statistics","bar-chart","correlation","frequency-table","regression","data-generator","scatter-plot","compare-datasets","moving-average"],
 ["earth-basics","distance-bearing","coordinates","map-scale","earthquake-energy","water-cycle","heat-index","water-pressure","unit-converter","earth-atlas"],
-["scientists","timeline","formulas","math-concepts","physics-concepts","ai-concepts","astronomy-terms","technologies","discoveries","glossary"]]
-assert len(labs)==8 and all(len(l["mods"])==10 for l in labs)
-ab={m[1]:(m[2],m[3]) for m in re.finditer(r'"(\d-\d)":\["([^"]*)","([^"]*)"',open(os.path.join(ROOT,"assets/about.js"),encoding="utf8").read())}
-for m in re.finditer(r'"(\d)-(\d)":"([^"]*)"',open(os.path.join(ROOT,"assets/about.js"),encoding="utf8").read().split("window.ABOUT2=")[1]):ab[m[1]+"-"+m[2]]=(labs[int(m[1])]["mods"][int(m[2])]+" چیست؟",m[3])
+["scientists","timeline","formulas","math-concepts","physics-concepts","ai-concepts","astronomy-terms","technologies","discoveries","glossary"],
+["nervous-system-map","brain-3d","reflex-spinal-cord","neuron-3d","action-potential","synapse","memory-plasticity","diseases-addiction","receptors","eye-vision","ear-smell-taste","skeleton-bone","joint-muscle","summary-quiz"]]
+assert len(labs)==9 and all(len(l["mods"])==len(MS[i]) for i,l in enumerate(labs))
+ab={m[1]:(m[2],m[3]) for m in re.finditer(r'"(\d+-\d+)":\["([^"]*)","([^"]*)"',open(os.path.join(ROOT,"assets/about.js"),encoding="utf8").read())}
+for m in re.finditer(r'"(\d+)-(\d+)":"([^"]*)"',open(os.path.join(ROOT,"assets/about.js"),encoding="utf8").read().split("window.ABOUT2=")[1]):ab[m[1]+"-"+m[2]]=(labs[int(m[1])]["mods"][int(m[2])]+" چیست؟",m[3])
 open(os.path.join(ROOT,"assets/routes.js"),"w",encoding="utf8").write("window.ROUTES={l:"+json.dumps(LS)+",m:"+json.dumps(MS)+',root:(function(){var b=document.querySelector("base");return b?b.href:new URL(".",location.href).href})(),u:function(l,m){return new URL(l===undefined?"./":ROUTES.l[l]+"/"+(m===undefined?"":ROUTES.m[l][m]+"/"),ROUTES.root).href}};\n')
 for d in LS+["labs"]:shutil.rmtree(os.path.join(ROOT,d),ignore_errors=True)
 for f in os.listdir(os.path.join(ROOT,"tools")):
     if f.endswith(".html"):os.remove(os.path.join(ROOT,"tools",f))
-nav='<nav class="seo-nav" aria-label="فهرست آزمایشگاه‌ها و بخش‌ها">'+"".join(f'<div><a href="{LS[i]}/"><b>{E(l["name"])}</b></a>: '+" · ".join(f'<a href="{LS[i]}/{MS[i][j]}/">{E(m)}</a>' for j,m in enumerate(l["mods"]))+"</div>" for i,l in enumerate(labs))+"</nav>"
-T=re.sub(r'<nav class="seo-nav".*?</nav>',nav,T,1,flags=re.S)
+TOT=sum(len(l["mods"]) for l in labs)
+res=[("library/scientists/","دانشمندان و دستاوردها"),("library/timeline/","گاه‌شمار علم"),("library/formulas/","فرمول‌های ریاضی"),("library/glossary/","واژه‌نامهٔ علمی"),("library/discoveries/","کشفیات مهم")]
+foot='<footer class="sfoot" id="sfoot"><div class="fg"><div><div class="fb"><img src="assets/icon-192.png" alt="آزمایشگاه تیا" width="34" height="34">آزمایشگاه تیا</div><p>آزمایشگاه فارسی علم و فناوری برای بچه‌های پایه هشتم: ریاضی، فیزیک، زیست‌شناسی، فضا، هوش مصنوعی و علم داده؛ همه به‌صورت شبیه‌ساز و مدل تعاملی.</p></div><div><h5>آزمایشگاه‌ها</h5>'+"".join(f'<a href="{LS[i]}/">{E(l["name"])}</a>' for i,l in enumerate(labs))+'</div><div><h5>منابع</h5>'+"".join(f'<a href="{u}">{t}</a>' for u,t in res)+'</div><div><h5>پیوندها</h5><a href="biology/">زیست‌شناسی؛ حس و حرکت</a><a href="math/sieve/">غربال اراتستن</a><a href="sitemap.xml">نقشهٔ سایت</a></div></div><details><summary>فهرست همهٔ بخش‌ها</summary>'+"".join(f'<div><b>{E(l["name"])}:</b> '+"".join(f'<a href="{LS[i]}/{MS[i][j]}/">{E(m)}</a>' for j,m in enumerate(l["mods"]))+'</div>' for i,l in enumerate(labs))+'</details><div class="fc"><span>© ۲۰۲۶ آزمایشگاه تیا · همهٔ حقوق محفوظ است.</span><span>علم را آزمایش کن.</span></div></footer>'
+T=re.sub(r'<footer class="sfoot".*?</footer>',lambda m:foot,T,1,flags=re.S)
 if '<base href="./">' not in T:T=T.replace("<head>\n",'<head>\n<base href="./">\n',1)
 open(os.path.join(ROOT,"index.html"),"w",encoding="utf8").write(T)
 urls=[(BASE+"/","1.0")]
@@ -39,7 +42,7 @@ def page(path,depth,start,title,desc,url,body):
     os.makedirs(os.path.dirname(path),exist_ok=True);open(path,"w",encoding="utf8").write(t)
 for i,l in enumerate(labs):
     lu=f"{BASE}/{LS[i]}/";urls.append((lu,"0.8"))
-    desc=f"آزمایشگاه {l['name']} در آزمایشگاه تیا: {l['desc']}. ده ابزار و شبیه‌ساز تعاملی مثل {'، '.join(l['mods'][:3])} برای بچه‌های پایه هشتم."
+    desc=f"آزمایشگاه {l['name']} در آزمایشگاه تیا: {l['desc']}. {len(l['mods'])} ابزار و شبیه‌ساز تعاملی مثل {'، '.join(l['mods'][:3])} برای بچه‌های پایه هشتم."
     page(os.path.join(ROOT,LS[i],"index.html"),1,f"[{i}]",f"آزمایشگاه {l['name']} | آزمایشگاه تیا",desc,lu,f"<h1>آزمایشگاه {E(l['name'])}</h1><p>{E(desc)}</p>")
     for j,m in enumerate(l["mods"]):
         u=f"{BASE}/{LS[i]}/{MS[i][j]}/";urls.append((u,"0.6"));a=ab.get(f"{i}-{j}")
