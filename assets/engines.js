@@ -122,5 +122,5 @@ if(E[k]){[...t.children].slice(3).forEach(n=>n.remove());t.classList.add("wide")
 document.title=labs[li].mods[mi]+" | آزمایشگاه تیا";nav(li,mi)};
 const ol=window.openLab;window.openLab=function(i){cancelAnimationFrame(RAF);ol(i);$$("[data-module]").forEach(b=>{if(E[i+"-"+b.dataset.module]){b.classList.add("eng");b.querySelector("small").textContent="موتور پژوهشی · شبیه‌سازی زنده"}});document.title=labs[i].name+" | آزمایشگاه تیا";nav(i)};
 const sh=window.show;window.show=function(v,t){if(v!=="tool")cancelAnimationFrame(RAF);sh(v,t);if(v==="home"||v==="labs"){nav();document.title=v==="home"?"آزمایشگاه تیا | آزمایشگاه آنلاین ریاضی، فیزیک، فضا و هوش مصنوعی":"آزمایشگاه‌ها | آزمایشگاه تیا"}};
-const m=location.hash.match(/^#\/([0-7])(?:\/(\d))?$/);if(m){m[2]!==undefined?openModule(+m[1],+m[2]):openLab(+m[1])}
+const m=location.hash.match(/^#\/([0-9])(?:\/(\d+))?$/);if(m){m[2]!==undefined?openModule(+m[1],+m[2]):openLab(+m[1])}
 })();
