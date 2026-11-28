@@ -10,7 +10,7 @@ const solve=m=>{const gs=new Float64Array(C*N).fill(1e9),pr=new Int32Array(C*N).
 while(op.length){let b=0;for(let i=1;i<op.length;i++)if(op[i][1]<op[b][1])b=i;const u=op.splice(b,1)[0][0];if(seen[u])continue;seen[u]=1;cl.push(u);if(u===G)break;
 for(const v of nb(u)){const ng=gs[u]+(m==="bfs"?1:wt[v]);if(m==="gre"?(!seen[v]&&pr[v]<0):ng<gs[v]){gs[v]=ng;pr[v]=u;op.push([v,m==="bfs"?++n:m==="dij"?ng:m==="ast"?ng+hh(v):hh(v)])}}}
 const p=[];if(seen[G])for(let u=G;u>=0;u=pr[u])p.push(u);p.reverse();return{cl,p,cost:p.reduce((s,q,i)=>i?s+wt[q]:0,0)}};
-const go=m=>{if(m)alg=m;run={r:solve(alg),i:0};const nm={bfs:"BFS",dij:"دایکسترا",ast:"A*",gre:"حریصانه"};g("po").innerHTML=Object.keys(nm).map(a=>{const r=solve(a);return`${nm[a]}${a===alg?" ◀":""}: ${L(r.cl.length)} خانه بررسی · ${r.p.length?"هزینه مسیر "+r.cost:"مسیری نیست"}`}).join("<br>")+"<br><small>روی صفحه بکش تا دیوار بسازی یا برداری.</small>"};
+const go=m=>{if(m)alg=m;run={r:solve(alg),i:0};const nm={bfs:"BFS",dij:"دایکسترا",ast:"A*",gre:"حریصانه"};g("po").innerHTML=Object.keys(nm).map(a=>{const r=solve(a);return`${nm[a]}${a===alg?" (فعال)":""}: ${L(r.cl.length)} خانه بررسی · ${r.p.length?"هزینه مسیر "+r.cost:"مسیری نیست"}`}).join("<br>")+"<br><small>روی صفحه بکش تا دیوار بسازی یا برداری.</small>"};
 const L=n=>n.toLocaleString("en-US");
 ["bfs","dij","ast","gre"].forEach(a=>g("a_"+a).onclick=()=>{["bfs","dij","ast","gre"].forEach(z=>g("a_"+z).className="btn "+(z===a?"primary":"ghost"));go(a)});
 g("rw").onclick=()=>{wall=wall.map((_,i)=>i!==S&&i!==G&&Math.random()<.28?1:0);go()};if(terr)g("rt").onclick=()=>{wt=wt.map(()=>1+(Math.random()*5|0));go()};g("rc").onclick=()=>{wall.fill(0);wt.fill(1);go()};

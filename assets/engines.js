@@ -118,7 +118,7 @@ x.fillStyle="#9aa8c0";x.font="13px Vazirmatn,Arial";x.textAlign="right";x.fillTe
 
 const om=window.openModule;window.openModule=function(li,mi){const from=state.view;cancelAnimationFrame(RAF);om(li,mi);const k=li+"-"+mi,t=$(".tool");
 $("#toolBack").onclick=()=>from==="detail"||from==="tool"?openLab(li):show(from);
-if(E[k]){[...t.children].slice(3).forEach(n=>n.remove());t.classList.add("wide");const d=document.createElement("div");d.id="eng";t.appendChild(d);E[k](d);t.insertAdjacentHTML("beforeend",`<div class="toolbuttons"><button class="btn ghost" id="favBtn">☆ نشان‌کردن این بخش</button></div>`);$("#favBtn").onclick=()=>toggleFav(k)}
+if(E[k]){[...t.children].slice(3).forEach(n=>n.remove());t.classList.add("wide");const d=document.createElement("div");d.id="eng";t.appendChild(d);E[k](d);t.insertAdjacentHTML("beforeend",`<div class="toolbuttons"><button class="btn ghost" id="favBtn">نشان‌کردن این بخش</button></div>`);$("#favBtn").onclick=()=>toggleFav(k)}
 document.title=labs[li].mods[mi]+" | آزمایشگاه تیا";nav(li,mi)};
 const ol=window.openLab;window.openLab=function(i){cancelAnimationFrame(RAF);ol(i);$$("[data-module]").forEach(b=>{if(E[i+"-"+b.dataset.module]){b.classList.add("eng");b.querySelector("small").textContent="موتور پژوهشی · شبیه‌سازی زنده"}});document.title=labs[i].name+" | آزمایشگاه تیا";nav(i)};
 const sh=window.show;window.show=function(v,t){if(v!=="tool")cancelAnimationFrame(RAF);sh(v,t);if(v==="home"||v==="labs"){nav();document.title=v==="home"?"آزمایشگاه تیا | آزمایشگاه آنلاین ریاضی، فیزیک، فضا و هوش مصنوعی":"آزمایشگاه‌ها | آزمایشگاه تیا"}};

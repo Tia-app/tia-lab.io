@@ -8,7 +8,7 @@ E["8-4"]=h=>{
  L.vis.innerHTML='<div class="btabs" id="t4"></div><div id="v4"></div>';
  const v4=g("v4");
  const spike=()=>{
-  v4.innerHTML='<div class="bctl"><label>شدت تحریک <input type="range" id="stim" min="0" max="20" value="10"></label><button class="bbtn" id="sfire">⚡ تحریک نورون</button><button class="bbtn" id="sdbl">دو تحریک پشت‌سرهم</button><label>سرعت <input type="range" id="sspd" min="1" max="10" value="4"></label></div>';
+  v4.innerHTML='<div class="bctl"><label>شدت تحریک <input type="range" id="stim" min="0" max="20" value="10"></label><button class="bbtn" id="sfire">تحریک نورون</button><button class="bbtn" id="sdbl">دو تحریک پشت‌سرهم</button><label>سرعت <input type="range" id="sspd" min="1" max="10" value="4"></label></div>';
   const c=cv(v4,1000,520),x=c.getContext("2d");
   v4.insertAdjacentHTML("beforeend",'<div class="bstat"><div><b id="svm">−۷۰</b><small>پتانسیل غشا (mV)</small></div><div><b id="sph">استراحت</b><small>مرحله</small></div><div><b id="sna">۰٪</b><small>باز بودن کانال Na⁺</small></div><div><b id="sk">۰٪</b><small>باز بودن کانال K⁺</small></div></div>');
   let V=-65,m=.053,hh=.596,n=.318,t=0,I=0,Iend=0,pend=[];const hist=[];const ion=[];
@@ -52,7 +52,7 @@ E["8-4"]=h=>{
   let last=-70;function dtV(){return 1}
  };
  const cond=()=>{
-  v4.innerHTML='<div class="bctl"><button class="bbtn on" id="cmy">غلاف میلین: روشن</button><button class="bbtn" id="cgo">⚡ تحریک از چپ</button><button class="bbtn" id="cmid">⚡ تحریک از وسط (پیام دو طرفه؟)</button></div>';
+  v4.innerHTML='<div class="bctl"><button class="bbtn on" id="cmy">غلاف میلین: روشن</button><button class="bbtn" id="cgo">تحریک از چپ</button><button class="bbtn" id="cmid">تحریک از وسط (پیام دو طرفه؟)</button></div>';
   const c=cv(v4,1000,300),x=c.getContext("2d");v4.insertAdjacentHTML("beforeend",'<div class="bstat"><div><b id="ct">—</b><small>زمان رسیدن به انتها</small></div><div><b id="cs">—</b><small>سرعت نسبی</small></div></div>');
   let my=true;const N=100,st=new Uint8Array(N),rf=new Float32Array(N);let tm=0,t0=-1,done=-1,acc=0;
   const isN=i=>!my||i%10===0||i===N-1;const reset=()=>{st.fill(0);rf.fill(0);tm=0;t0=-1;done=-1;g("ct").textContent="—";g("cs").textContent="—"};
@@ -74,7 +74,7 @@ E["8-4"]=h=>{
 /* ───────── ۸-۵ سیناپس ───────── */
 E["8-5"]=h=>{
  const L=B.layout(h,"#ef476f");
- L.vis.innerHTML='<div class="bctl"><button class="bbtn on" id="sgo">▶ ارسال پیام عصبی</button><label>مقدار ناقل <input type="range" id="snt" min="10" max="70" value="40"></label><label>مسدودکنندهٔ گیرنده <input type="range" id="sbl" min="0" max="100" value="0"></label><button class="bbtn" id="sca">مسدود کردن Ca²⁺</button></div>';
+ L.vis.innerHTML='<div class="bctl"><button class="bbtn on" id="sgo">ارسال پیام عصبی</button><label>مقدار ناقل <input type="range" id="snt" min="10" max="70" value="40"></label><label>مسدودکنندهٔ گیرنده <input type="range" id="sbl" min="0" max="100" value="0"></label><button class="bbtn" id="sca">مسدود کردن Ca²⁺</button></div>';
  const c=cv(L.vis,1000,600),x=c.getContext("2d");L.vis.insertAdjacentHTML("beforeend",'<div class="bstat"><div><b id="sst">آماده</b><small>مرحله</small></div><div><b id="sbd">۰</b><small>گیرندهٔ اشغال‌شده</small></div><div><b id="svv">۰٪</b><small>تغییر پتانسیل پس‌سیناپسی</small></div></div>');
  const ST=[["نورون پیش‌سیناپسی","<p>پیام عصبی (پتانسیل عمل) در طول آسه به <b>انتهای آسه</b> می‌رسد. نورون‌ها با ارتباطی به نام <b>سیناپس</b> به هم وصل‌اند و بین آن‌ها فضای سیناپسی هست."],["ورود کلسیم","<p>رسیدن پیام کانال‌های دریچه‌دار کلسیمی را باز می‌کند و یون‌های Ca²⁺ وارد انتهای آسه می‌شوند."],["رهاسازی ناقل (اگزوسیتوز)","<p>ناقل‌های عصبی (نوروترانسمیتر) درون نورون ساخته و در وزیکول‌ها ذخیره می‌شوند. وزیکول‌ها در طول آسه حرکت می‌کنند و با ورود Ca²⁺ با غشا ادغام می‌شوند و ناقل را با <b>اگزوسیتوز</b> به فضای سیناپسی می‌ریزند."],["اتصال به گیرنده","<p>ناقل در فضای سیناپسی پخش می‌شود و به <b>گیرندهٔ پروتئینی</b> غشای نورون پس‌سیناپسی وصل می‌شود."],["باز شدن کانال‌ها","<p>اتصال ناقل باعث فعال شدن کانال‌ها می‌شود. نفوذپذیری غشای پس‌سیناپسی تغییر می‌کند (مثلاً Na⁺ وارد می‌شود) و پتانسیل الکتریکی آن تغییر می‌کند."],["پیام تازه","<p>اگر تغییر پتانسیل به آستانه برسد، در نورون پس‌سیناپسی پیام عصبی جدید ایجاد می‌شود. سپس ناقل تجزیه یا دوباره جذب می‌شود تا پیام تمام شود."]];
  let ph=-1,tm=0,play=false;const P=[],ves=[],rc=[],ca=[];const RX=[360,450,540,630,720];
@@ -165,13 +165,13 @@ E["8-7"]=h=>{
  const L=B.layout(h,"#ff6b81");
  L.vis.innerHTML='<div class="btabs" id="t7"></div><div id="v7"></div>';const v=g("v7");
  const ms=()=>{
-  v.innerHTML='<div class="bctl"><label>تخریب میلین <input type="range" id="msd" min="0" max="100" value="0"></label><button class="bbtn" id="msg">⚡ ارسال پیام</button></div>';const c=cv(v,1000,300),x=c.getContext("2d");v.insertAdjacentHTML("beforeend",'<div class="bstat"><div><b id="msv">۱۰۰٪</b><small>سرعت نسبی هدایت</small></div><div><b id="msr">۱۰۰٪</b><small>احتمال رسیدن پیام</small></div></div>');
+  v.innerHTML='<div class="bctl"><label>تخریب میلین <input type="range" id="msd" min="0" max="100" value="0"></label><button class="bbtn" id="msg">ارسال پیام</button></div>';const c=cv(v,1000,300),x=c.getContext("2d");v.insertAdjacentHTML("beforeend",'<div class="bstat"><div><b id="msv">۱۰۰٪</b><small>سرعت نسبی هدایت</small></div><div><b id="msr">۱۰۰٪</b><small>احتمال رسیدن پیام</small></div></div>');
   let t=-1,lost=false;const R=B.rnd(3),dm=Array.from({length:12},()=>R());g("msg").onclick=()=>{t=0;lost=false};
   loop(c,dt=>{const d=+g("msd").value/100,sp=1-d*.85,rel=Math.max(0,1-Math.max(0,d-.3)*1.2);g("msv").textContent=FA(Math.round(sp*100))+"٪";g("msr").textContent=FA(Math.round(rel*100))+"٪";
    if(t>=0){if(t===0)lost=Math.random()>rel;t+=dt*sp*.55;if(t>1){t=-1}}
    x.fillStyle="#050a15";x.fillRect(0,0,1000,300);const y=150;x.fillStyle="#f2c14e";x.fillRect(40,y-6,920,12);
    dm.forEach((q,i)=>{const px=60+i*74,dead=q<d;x.fillStyle=dead?"#6b5a3a":"#f5efd2";const hh=dead?10+q*8:34;x.fillRect(px,y-hh,60,2*hh);if(dead){x.strokeStyle="#ff6b81";x.setLineDash([3,4]);x.strokeRect(px,y-hh,60,2*hh);x.setLineDash([])}});
-   if(t>=0){const lim=lost?.55:1,k=Math.min(t,lim),px=40+k*920;x.fillStyle="#ffe27a";x.shadowColor="#ffe27a";x.shadowBlur=18;x.beginPath();x.arc(px,y,11,0,7);x.fill();x.shadowBlur=0;if(lost&&t>.55){x.fillStyle="#ff6b81";x.font="16px Vazirmatn";x.textAlign="center";x.fillText("پیام در مسیر از بین رفت ✕",500,60)}}
+   if(t>=0){const lim=lost?.55:1,k=Math.min(t,lim),px=40+k*920;x.fillStyle="#ffe27a";x.shadowColor="#ffe27a";x.shadowBlur=18;x.beginPath();x.arc(px,y,11,0,7);x.fill();x.shadowBlur=0;if(lost&&t>.55){x.fillStyle="#ff6b81";x.font="16px Vazirmatn";x.textAlign="center";x.fillText("پیام در مسیر از بین رفت",500,60)}}
    x.fillStyle="#9fb0cf";x.font="13px Vazirmatn";x.textAlign="center";x.fillText("کرم‌رنگ: میلین سالم · قهوه‌ای: میلین تخریب‌شده",500,270)});
   L.set("ام‌اس (MS)","<p>اختلال عملکرد یاخته‌های پشتیبان هم می‌تواند سبب بیماری شود. در بیماری ام‌اس عملکرد گروهی از یاخته‌های پشتیبان سیستم عصبی مرکزی دچار نقصان می‌شود. نتیجه: غلاف میلین تخریب می‌شود و هدایت پیام کند و ناقص می‌شود.</p>","نوار تخریب را بالا ببر و چند بار پیام بفرست.","#ff6b81");
  };

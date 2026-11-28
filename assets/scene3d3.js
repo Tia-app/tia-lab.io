@@ -1,5 +1,5 @@
 (()=>{
-const TAU=Math.PI*2,soft=TIA.d3,EARTH=["6-0","6-1","6-2","6-3","6-9"],MAXL=14000,MAXP=3000;
+const TAU=Math.PI*2,soft=TIA.d3,EARTH=["6-0","6-1","6-2"],MAXL=14000,MAXP=3000;
 const box=(L,x,z,w,h,c)=>{const q=[[x,z],[x+w,z],[x+w,z+w],[x,z+w]];q.forEach((a,m)=>{const b=q[(m+1)%4];L.push([a[0],0,a[1],a[0],h,a[1],c,1],[a[0],h,a[1],b[0],h,b[1],c,1])})};
 const PR=[2,3,5,7],spf=n=>PR.findIndex(p=>n%p===0&&n>p);
 TIA.reg("0-0",t=>{const L=[],P=[],tt=(t*.45)%6;for(let n=1;n<=100;n++){const i=(n-1)%10,j=Math.floor((n-1)/10),x=(i-5)*.95,z=(j-5)*.95,k=n>1?spf(n):-1;const pr=n>1&&k<0;const done=k>=0&&tt>k+(n/PR[k])/12;const h=pr?2.4:k>=0?(done?.25:2.4):.25;const c=pr?"#59d6a3":done?"#5a2f4a":n===1?"#6d7c98":"#7f6cf0";box(L,x,z,.55,h,c);if(pr)P.push([x+.27,h+.2,z+.27,"#59d6a3",4])}return{l:L,p:P}});
